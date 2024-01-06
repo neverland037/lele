@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html>
+  
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+    <title></title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"
+    />
+
+    <!-- HOSTED -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,600italic,300italic,400italic,300,700italic,800italic,800"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="fonts/mdi/css/materialdesignicons.min.css"
+      media="all"
+      rel="stylesheet"
+    />
+
+    <!-- LOCAL -->
+    <link rel="stylesheet" href="style/style.css" />
+    <link rel='shortcut icon' href='favicon.ico' type='image/x-icon'/ >
+
+    <!-- HOSTED -->
+    <script src="../cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <script src="../ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="../cdnjs.cloudflare.com/ajax/libs/mixitup/2.1.11/jquery.mixitup.min.js"></script>
+    <script src="../cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.0/jquery.waypoints.min.js"></script>
+
+    <!-- LOCAL -->
+    <script src="scripts/pt.min.js"></script>
+    <script src="scripts/index.js"></script>
+    <script src="scripts/modal.js"></script>
+  </head>
+  <body>
+    <div class="overflow-wrap">
+      <!-- HOME -->
+      <div class="modal-wrap flex">
+        <div class="mask"></div>
+        <div class="modal" id="modal">
+          <div class="carousel-wrap">
+            <div class="window">
+              <div id="carousel">
+                <div class="slide"></div>
+                <div class="slide"></div>
+                <div class="slide"></div>
+                <div class="slide"></div>                
+              </div>
+              <i class="mdi mdi-chevron-left" id="prev"></i>
+              <i class="mdi mdi-chevron-right" id="next"></i>
+            </div>
+          </div>
+          <div class="info-box">
+            <div class="title"></div>
+            <div class="tag"></div>
+            <div class="detail"></div>
+            <a href="#" target="_blank"
+              ><div class="button">
+                <i class="mdi mdi-open-in-new"></i>Ver Sitio
+              </div></a
+            >
+          </div>
+          <i class="close mdi mdi-close"></i>
+        </div>
+      </div>
+
+      <section id="home" class="flex height-fix">
+        <div id="pt" class="canvas"></div>
+        <div class="flex">
+          <div class="text">
+            Hola, soy <span class="highlight">Lesli Estela!</span>
+            <br />
+            Una apasionada diseñadora y publicista.
+            
+          </div>
+
+          <div class="button page-link" dest="about">
+            Ver mi Trabajo <i class="mdi mdi-arrow-right"></i>
+          </div>
+
+          <nav class="flex">
+            <div class="link-wrap">
+              <div class="active page-link" dest="home">inicio</div>
+              <div class="page-link" dest="about">sobre mi</div>
+              <div class="page-link" dest="portfolio">portafolio</div>
+              <div class="page-link" dest="blog">blog</div>
+              <div class="page-link" dest="contact">contacto</div>
+            </div>
+            <i class="mdi mdi-menu"></i>
+          </nav>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about">
+        <div class="container flex">
+          <div class="header waypoint" data-animation="slide-in-left">
+            SOBRE MI
+          </div>
+          <div
+            class="header-bar waypoint"
+            data-animation="slide-in-left"
+            data-delay=".5s"
+          ></div>
+
+          <div class="flex row label-wrap">
+            <div class="flex row-gt-sm">
+              <div class="flex bullet-wrap ">
+                <div class="hex-wrap waypoint" data-animation="flip-in-x">
+                  <div class="hexagon">
+                    <i class="mdi mdi-web"></i>
+                  </div>
+                </div>
+                <div class="waypoint" data-animation="fade-in">
+                  <div class="label bold">Web</div>
+                  <div>
+                    Me especializo en la creación de experiencias digitales atractivas y funcionales.
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex bullet-wrap ">
+                <div
+                  class="hex-wrap waypoint"
+                  data-animation="flip-in-x"
+                  data-delay=".2s"
+                >
+                  <div class="hexagon">
+                    <i class="mdi mdi-bullhorn"></i>
+                  </div>
+                </div>
+                <div class="waypoint" data-animation="fade-in" data-delay=".2s">
+                  <div class="label bold">Comunicación</div>
+                  <div>Comunicación enérgica y efectiva de mensajes publicitarios.</div>
+                </div>
+              </div>
+            </div>
+            <div class="flex row-gt-sm">
+              <div class="flex bullet-wrap ">
+                <div
+                  class="hex-wrap waypoint"
+                  data-animation="flip-in-x"
+                  data-delay=".4s"
+                >
+                  <div class="hexagon">
+                    <i class="mdi mdi-brush"></i>
+                  </div>
+                </div>
+                <div class="waypoint" data-animation="fade-in" data-delay=".4s">
+                  <div class="label bold">Creatividad</div>
+                  <div>Creo conceptos visuales únicos que capturan la atención de la audiencia.</div>
+                </div>
+              </div>
+
+              <div class="flex bullet-wrap ">
+                <div
+                  class="hex-wrap waypoint"
+                  data-animation="flip-in-x"
+                  data-delay=".6s"
+                >
+                  <div class="hexagon">
+                    <i class="mdi mdi-rocket"></i>
+                  </div>
+                </div>
+                <div class="waypoint" data-animation="fade-in" data-delay=".6s">
+                  <div class="label bold">Dinámico</div>
+                  <div>
+                    Creatividad y funcionalidad para diseñar experiencias visuales atractivas.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skills-wrapper flex row-gt-sm">
+            <div
+              class="flex flex-50-gt-sm waypoint"
+              data-animation="slide-in-left"
+            >
+              <img src="img/lele.png" class="me" />
+              <!-- <div><img class="up-arrow" src="img/up-arrow.png"></div> -->
+              <div class="label bold">Quién soy?</div>
+              <div>
+                Soy una apasionada diseñadora y publicista con experiencia en la creación de soluciones visuales y estrategias de 
+                
+                <a
+                  class="highlight"
+                  
+                  target="_blank"
+                  >marketing.</a
+                
+                >
+                <br />
+                Además de mi experiencia en diseño gráfico, también tengo habilidades en diseño web y manejo de herramientas de software de diseño
+                
+                <span class=" highlight" dest="contact"
+                  >líderes en la industria.</span
+                >
+              </div>
+            </div>
+
+            <div
+              class="flex flex-50-gt-sm waypoint bars-wrap"
+              data-animation="slide-in-right"
+            >
+              <div class="bar flex">
+                <div class="bar fill" style="width:85%">
+                  <div class="tag bold flex">Illustrator</div>
+                </div>
+                <span>85%</span>
+              </div>
+
+              <div class="bar flex">
+                <div class="bar fill" style="width:85%">
+                  <div class="tag bold flex">Photoshop</div>
+                </div>
+                <span>85%</span>
+              </div>
+
+              <div class="bar flex">
+                <div class="bar fill" style="width:70%">
+                  <div class="tag bold flex">Premiere Pro</div>
+                </div>
+                <span>70%</span>
+              </div>
+
+              <div class="bar flex">
+                <div class="bar fill" style="width:60%">
+                  <div class="tag bold flex">Fotografía</div>
+                </div>
+                <span>60%</span>
+              </div>
+
+              <div class="bar flex">
+                <div class="bar fill" style="width:60%">
+                  <div class="tag bold flex">After Effects</div>
+                </div>
+                <span>60%</span>
+              </div>
+
+              <div class="bar flex">
+                <div class="bar fill" style="width:60%">
+                  <div class="tag bold flex">UI/UX</div>
+                </div>
+                <span>60%</span>
+              </div>
+
+              <div class="bar flex">
+                <div class="bar fill" style="width:60%">
+                  <div class="tag bold flex">Figma</div>
+                </div>
+                <span>60%</span>
+              </div>
+
+              <div class="bar flex">
+                <div class="bar fill" style="width:50%">
+                  <div class="tag bold flex">HTML</div>
+                </div>
+                <span>50%</span>
+              </div>
+
+              <div class="bar flex">
+                <div class="bar fill" style="width:50%">
+                  <div class="tag bold flex">CSS</div>
+                </div>
+                <span>50%</span>
+              </div>
+
+              
+
+              <div class="bar flex">
+                <div class="bar fill" style="width:50%">
+                  <div class="tag bold flex">SEO</div>
+                </div>
+                <span>50%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PORTFOLIO -->
+      <section class="flex" id="portfolio">
+        <div class="header waypoint" data-animation="slide-in-right">
+          PROYECTOS
+        </div>
+        <div
+          class="header-bar waypoint"
+          data-animation="slide-in-right"
+          data-delay=".3s"
+        ></div>
+
+        <div class="filter-wrap waypoint" data-animation="fade-in">
+          <div class="flex row">
+            <div class="filter" data-filter="all">TODO</div>
+            <div class="filter" data-filter=".rails">IDENTIDAD DE MARCA</div>
+            <div class="filter" data-filter=".react">MATERIAL PROMOCIONAL</div>
+            <div class="filter" data-filter=".js">SITIOS WEB</div>
+          </div>
+          <div class="float-bar">
+            <div class="flex row">
+              <div class="filter" data-filter="all">TODO</div>
+              <div class="filter" data-filter=".rails">IDENTIDAD DE MARCA</div>
+              <div class="filter" data-filter=".react">MATERIAL PROMOCIONAL</div>
+              <div class="filter" data-filter=".js">SITIOS WEB</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="gallery" class="container flex row wrap waypoint">
+          <div class="mix react" data-my-order="1">
+            <div>
+              <div class="card"></div>
+              <div class="text">
+                <div class="bold">Fuente Dorada</div>
+                <span class="highlight">MATERIAL PROMOCIONAL</span>
+              </div>
+              <div class="button" id="ordering">MOSTRAR MÁS</div>
+            </div>
+          </div>
+
+          <div class="mix react" data-my-order="1">
+            <div>
+              <div class="card"></div>
+              <div class="text">
+                <div class="bold">Heladería Arcoíris</div>
+                <span class="highlight">MATERIAL PROMOCIONAL</span>
+              </div>
+              <div class="button" id="discover">MOSTRAR MÁS</div>
+            </div>
+          </div>
+
+          <div class="mix react" data-my-order="1">
+            <div>
+              <div class="card"></div>
+              <div class="text">
+                <div class="bold">Apu Pariakaka</div>
+                <span class="highlight">MATERIAL PROMOCIONAL</span>
+              </div>
+              <div class="button" id="newrelic">MOSTRAR MÁS</div>
+            </div>
+          </div>
+
+          <div class="mix js" data-my-order="1">
+            <div>
+              <div class="card"></div>
+              <div class="text">
+                <div class="bold">Tienda Virtual</div>
+                <span class="highlight">SITIOS WEB</span>
+              </div>
+              <div class="button" id="roambi">MOSTRAR MÁS</div>
+            </div>
+          </div>
+
+          <div class="mix rails" data-my-order="1">
+            <div>
+              <div class="card"></div>
+              <div class="text">
+                <div class="bold">Monte Pukuy</div>
+                <span class="highlight">IDENTIDAD DE MARCA</span>
+              </div>
+              <div class="button" id="walker">MOSTRAR MÁS</div>
+            </div>
+          </div>
+
+          <div class="mix js" data-my-order="1">
+            <div>
+              <div class="card"></div>
+              <div class="text">
+                <div class="bold">Portafolio</div>
+                <span class="highlight">SITIOS WEB</span>
+              </div>
+              <div class="button" id="mystand">MOSTRAR MÁS</div>
+            </div>
+          </div>
+
+          <!--<div class="mix js" data-my-order="1">
+            <div>
+              <div class="card"></div>
+              <div class="text">
+                <div class="bold">--</div>
+                <span class="highlight">SITIOS WEB</span>
+              </div>
+              <div class="button" id="never">MOSTRAR MÁS</div>
+            </div>
+          </div>-->
+
+          <!--<div class="mix rails" data-my-order="1">
+            <div>
+              <div class="card"></div>
+              <div class="text">
+                <div class="bold">--</div>
+                <span class="highlight">IDENTIDAD DE MARCA</span>
+              </div>
+              <div class="button" id="powur">MOSTRAR MÁS</div>
+            </div>
+          </div>-->
+          
+
+          <!--<div class="mix js" data-my-order="1">
+            <div>
+              <div class="card"></div>
+              <div class="text">
+                <div class="bold">--</div>
+                <span class="highlight">SITIOS WEB</span>
+              </div>
+              <div class="button" id="themall">MOSTRAR MÁS</div>
+            </div>
+          </div>-->
+        </div>
+      </section>
+
+      <!-- BLOG -->
+      <section id="blog">
+        <div class="container flex">
+          <div class="header waypoint" data-animation="slide-in-left">BLOG</div>
+          <div
+            class="header-bar waypoint"
+            data-animation="slide-in-left"
+            data-delay=".5s"
+          ></div>
+
+          <div class="flex row wrap">
+            <div class="flex row-gt-sm">
+              <a
+                href="#"
+                target="_blank"
+              >
+                <div class="blog-wrap waypoint" data-animation="fade-in">
+                  <div class="fade-wrap">
+                    <div class="thumb" id="thumb-1"></div>
+                    <div class="label bold">10 Estrategias de Marketing Digital que Debes Conocer en 2023.</div>
+                    <div class="date">MARZO 29, 2023</div>
+                    <div class="bar"></div>
+                    <div class="text">
+                      En este artículo, te presentaré 10 estrategias clave de marketing digital que son relevantes y efectivas para el año 2023. Exploraremos temas como el marketing de contenidos, SEO, publicidad en redes sociales, automatización de marketing e influencer marketing, entre otros...
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <a
+                href="#"
+                target="_blank"
+              >
+                <div
+                  class="blog-wrap waypoint"
+                  data-animation="fade-in"
+                  data-delay=".2s"
+                >
+                  <div class="fade-wrap">
+                    <div class="thumb" id="thumb-2"></div>
+                    <div class="label bold">
+                      Cómo Crear una Campaña Publicitaria Efectiva: Guía Paso a Paso.
+                    </div>
+                    <div class="date">ABRIL 19, 2023</div>
+                    <div class="bar"></div>
+                    <div class="text">
+                      En esta guía, te acompañaré paso a paso en la creación de una campaña publicitaria exitosa. Aprenderemos juntos desde la definición de objetivos y la identificación del público objetivo, hasta la elección de los canales adecuados, la creación del mensaje y el seguimiento de los resultados...
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="flex row-gt-sm">
+              <a
+                href="#"
+                target="_blank"
+              >
+                <div
+                  class="blog-wrap waypoint"
+                  data-animation="fade-in"
+                  data-delay=".4s"
+                >
+                  <div class="fade-wrap">
+                    <div class="thumb" id="thumb-3"></div>
+                    <div class="label bold">El Poder del Storytelling en el Marketing: Cómo Contar Historias que Conecten.</div>
+                    <div class="date">MAYO 04, 2023</div>
+                    <div class="bar"></div>
+                    <div class="text">
+                      En este artículo, exploraremos juntos el poder del storytelling en el marketing y cómo puedes utilizarlo para conectar de manera más profunda con tu audiencia. Te proporcionaré consejos para desarrollar historias persuasivas, técnicas de narración efectivas y ejemplos de marcas exitosas que utilizan el storytelling...
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <a
+                href="#"
+                target="_blank"
+              >
+                <div
+                  class="blog-wrap waypoint"
+                  data-animation="fade-in"
+                  data-delay=".6s"
+                >
+                  <div class="fade-wrap">
+                    <div class="thumb" id="thumb-4"></div>
+                    <div class="label bold">
+                      Tendencias en Marketing y Publicidad: Lo Que Debes Saber para Destacar en el Mercado.
+                    </div>
+                    <div class="date">MAYO 23, 2023</div>
+                    <div class="bar"></div>
+                    <div class="text">
+                      En este artículo, compartiré contigo las últimas tendencias en marketing y publicidad que debes conocer para destacar en el mercado actual. Exploraremos juntos tendencias emergentes como la inteligencia artificial, el marketing de influencers, el marketing de experiencias, la personalización y el video marketing...
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <svg
+          preserveAspectRatio="none"
+          viewBox="0 0 100 102"
+          height="75"
+          width="100%"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          class="svgcolor-light"
+        >
+          <path d="M0 0 L50 100 L100 0 Z" fill="white" stroke="white"></path>
+        </svg>
+        <div class="container flex">
+          <div class="header waypoint" data-animation="slide-in-left">
+            CONTACTO
+          </div>
+          <div
+            class="header-bar waypoint"
+            data-animation="slide-in-right"
+            data-delay=".25s"
+          ></div>
+          <div
+            class="highlight waypoint"
+            data-animation="slide-in-right"
+            data-delay=".5s"
+          >
+          ¿Tiene alguna pregunta o quiere trabajar juntos?
+          </div>
+          <form
+            class="waypoint"
+            data-animation="pop-in"
+            data-delay=".5s"
+            id="contact-form"
+          >
+            <input placeholder="Nombre" type="text" name="name" required />
+            <input
+              placeholder="Ingrese correo electrónico"
+              type="email"
+              name="email"
+              required
+            />
+            <textarea
+              placeholder="Tu mensaje"
+              type="text"
+              name="message"
+            ></textarea>
+            <div id="success">
+              <div>
+                Your message was sent successfully. Thanks!<span
+                  id="close"
+                  class="mdi mdi-close"
+                ></span>
+              </div>
+            </div>
+            <input class="button" type="submit" id="submit" value="ENVIAR" />
+          </form>
+        </div>
+      </section>
+
+      <footer>
+        <i class="mdi mdi-chevron-double-up page-link" dest="home"></i>
+
+        <div class="icon-wrap flex row">
+          <!--a href="">
+            <div class="flex icon" id="icon-2">
+              <i class="mdi mdi-linkedin"></i>
+            </div>
+          </a-->
+          <a href="https://www.facebook.com/lesly.eswtelavasquez" target="_blank">
+            <div class="flex icon" id="icon-3">
+              <i class="mdi mdi-facebook"></i>
+            </div>
+          </a>
+          <a href="https://www.instagram.com/ylsel_495/" target="_blank">
+            <div class="flex icon" id="icon-4">
+              <i class="mdi mdi-instagram"></i>
+            </div>
+          </a>
+          <a href="https://api.whatsapp.com/send/?phone=906127524&text&type=phone_number&app_absent=0" target="_blank">
+            <div class="flex icon" id="icon-whatsapp">
+              <i class="mdi mdi-whatsapp"></i>
+            </div>
+          </a>
+          <!--a href="https://www.facebook.com/lesly.eswtelavasquez">
+            <div class="flex icon" id="icon-5">
+              <i class="mdi mdi-codepen"></i>
+            </div>
+          </a-->
+        </div>
+        <div class="info-box">
+          <div class="footnote">
+            Lesli Estela <span class="highlight">&copy;2023</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <div id="preload">
+      <img src="img/me.png" />
+      <img src="img/filler.html" />
+      <img src="img/thumb-1.jpg" />
+      <img src="img/thumb-2.jpg" />
+      <img src="img/thumb-3.jpg" />
+      <img src="img/thumb-4.jpg" />
+      <img src="img/thumb-5.jpg" />
+      <img src="img/thumb-6.jpg" />
+      <img src="img/blog-1.jpg" />
+      <img src="img/blog-2.jpg" />
+      <img src="img/blog-3.jpg" />
+      <img src="img/blog-4.jpg" />
+      <img src="img/slidesdiscover-0.jpg/" />
+      <img src="img/slides/discover-1.jpg" />
+      <img src="img/slides/discover-2.jpg" />
+      <img src="img/slides/ordering-0.jpg" />
+      <img src="img/slides/ordering-1.jpg" />
+      <img src="img/slides/ordering-2.jpg" />
+      <img src="img/slides/newrelic-0.jpg" />
+      <img src="img/slides/newrelic-1.jpg" />
+      <img src="img/slides/newrelic-2.jpg" />
+      <img src="img/slides/mystand-0.jpg" />
+      <img src="img/slides/mystand-1.jpg" />
+      <img src="img/slides/mystand-2.jpg" />
+      <img src="img/slides/never-0.jpg" />
+      <img src="img/slides/never-1.jpg" />
+      <img src="img/slides/never-2.jpg" />
+      <img src="img/slides/powur-0.jpg" />
+      <img src="img/slides/powur-1.jpg" />
+      <img src="img/slides/powur-2.jpg" />
+      <img src="img/slides/roambi-0.jpg" />
+      <img src="img/slides/roambi-1.jpg" />
+      <img src="img/slides/roambi-2.jpg" />
+      <img src="img/slides/themall-0.jpg" />
+      <img src="img/slides/themall-1.jpg" />
+      <img src="img/slides/themall-2.jpg" />
+      <img src="img/slides/walker-0.jpg" />
+      <img src="img/slides/walker-1.jpg" />
+      <img src="img/slides/walker-2.jpg" />
+      <img src="img/slides/walker-3.jpg" />
+
+
+      
+    </div>
+  </body>
+
+
+</html>
+
+<script src="scripts/canvas.js"></script>
