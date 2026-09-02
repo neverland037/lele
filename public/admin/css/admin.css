@@ -422,8 +422,8 @@ tr:hover td {
 }
 
 .btn-icon {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 6px;
   display: flex;
   align-items: center;
@@ -433,7 +433,7 @@ tr:hover td {
   color: var(--text-muted);
   cursor: pointer;
   transition: var(--transition);
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .btn-icon:hover {
@@ -523,17 +523,24 @@ tr:hover td {
 .preview-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 12px;
+  gap: 14px;
+  margin-top: 14px;
 }
 
 .preview-item {
-  width: 80px;
-  height: 70px;
-  border-radius: 6px;
+  width: 105px;
+  height: 85px;
+  border-radius: 8px;
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.preview-item.is-cover {
+  border-color: var(--accent-pink);
+  box-shadow: 0 0 12px rgba(227, 27, 109, 0.5);
 }
 
 .preview-item img {
@@ -542,21 +549,65 @@ tr:hover td {
   object-fit: cover;
 }
 
+.preview-cover-badge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(227, 27, 109, 0.9);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-align: center;
+  padding: 2px 0;
+  text-transform: uppercase;
+}
+
+.preview-set-cover-hint {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.2s;
+  text-align: center;
+  padding: 4px;
+}
+
+.preview-item:hover .preview-set-cover-hint {
+  opacity: 1;
+}
+
 .preview-remove {
   position: absolute;
-  top: 3px;
-  right: 3px;
-  background: rgba(0, 0, 0, 0.7);
+  top: 4px;
+  right: 4px;
+  background: rgba(239, 68, 68, 0.85);
   color: #fff;
   border: none;
   border-radius: 50%;
-  width: 18px;
-  height: 18px;
-  font-size: 0.7rem;
+  width: 20px;
+  height: 20px;
+  font-size: 0.8rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
+  transition: var(--transition);
+}
+
+.preview-remove:hover {
+  background: #ef4444;
+  transform: scale(1.15);
 }
 
 /* Modal Drawer / Popup */

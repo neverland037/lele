@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Window-accessible Project Modal opener
+  // Project Modal opener
   window.openProjectModal = function(id) {
     currentProject = projectsData.find(p => p.id === id);
     if (!currentProject) return;
@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       blogGrid.innerHTML = data.posts.map(post => `
-        <div class="blog-card" onclick="openBlogModal('${post.slug}')">
+        <a href="/blog/${post.slug}" class="blog-card">
           <div class="blog-thumb">
             <img src="${post.cover_image || 'img/thumb-1.jpg'}" alt="${post.title}" loading="lazy">
           </div>
@@ -239,45 +239,12 @@ document.addEventListener('DOMContentLoaded', () => {
               <i class="mdi mdi-arrow-right"></i>
             </div>
           </div>
-        </div>
+        </a>
       `).join('');
     } catch (err) {
       console.error('Error loading blog posts:', err);
     }
   }
-
-  window.openBlogModal = async function(slug) {
-    try {
-      const res = await fetch(`/api/posts/${slug}`);
-      const data = await res.json();
-      if (!data.success) return;
-
-      const post = data.post;
-      const modal = document.getElementById('blog-modal');
-      document.getElementById('modal-blog-tag').textContent = post.category || 'BLOG';
-      document.getElementById('modal-blog-title').textContent = post.title;
-      document.getElementById('modal-blog-date').textContent = post.published_date || '';
-      document.getElementById('modal-blog-img').src = post.cover_image || 'img/thumb-1.jpg';
-
-      // Simple Markdown-to-HTML parser for formatted article content
-      let contentHtml = post.content || '';
-      contentHtml = contentHtml
-        .replace(/^### (.*$)/gim, '<h3 style="color:#04c2c9; margin: 20px 0 10px 0;">$1</h3>')
-        .replace(/^## (.*$)/gim, '<h2 style="color:#ffffff; margin: 24px 0 12px 0;">$1</h2>')
-        .replace(/\*\*(.*?)\*\*/gim, '<strong style="color:#ffffff;">$1</strong>')
-        .replace(/^\s*\n\*/gm, '<ul>\n*')
-        .replace(/^(\d+)\.\s+(.*$)/gim, '<li style="margin-left:20px; margin-bottom:6px;"><strong>$1.</strong> $2</li>')
-        .replace(/^-\s+(.*$)/gim, '<li style="margin-left:20px; margin-bottom:6px;">$1</li>')
-        .replace(/\n\n/gim, '<br><br>');
-
-      document.getElementById('modal-blog-content').innerHTML = contentHtml;
-
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    } catch (err) {
-      console.error('Error opening blog article:', err);
-    }
-  };
 
   // --- CONTACT FORM ---
   function initContactForm() {

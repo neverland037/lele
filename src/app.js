@@ -17,6 +17,11 @@ app.use(express.static(path.join(__dirname, '../public')));
 // Mount API Routes
 app.use('/api', apiRoutes);
 
+// Dedicated Blog Routes
+app.get('/blog/:slug', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/blog.html'));
+});
+
 // Admin fallback
 app.get('/admin/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/admin/index.html'));

@@ -109,6 +109,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.sidebar')?.classList.toggle('open');
   });
 
+  // Global Modal Close Handler
+  window.closeAllModals = function() {
+    document.querySelectorAll('.modal-admin-overlay').forEach(m => m.classList.remove('active'));
+  };
+
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('btn-close-modal') || e.target.closest('.btn-close-modal') || e.target.classList.contains('modal-admin-overlay')) {
+      closeAllModals();
+    }
+  });
+
   // ==========================================
   // 1. DASHBOARD
   // ==========================================
@@ -116,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = await fetchAuth('/api/admin/dashboard');
     if (!data || !data.success) return;
 
-    const { stats, recentMessages, recentProjects } = data;
+    const { stats, recentMessages } = data;
 
     document.getElementById('kpi-projects').textContent = stats.totalProjects;
     document.getElementById('kpi-posts').textContent = stats.totalPosts;
@@ -222,20 +233,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('project-slides-preview');
     if (!container) return;
 
-    container.innerHTML = currentProjectImages.map((img, index) => `
-      <div class="preview-item">
-        <img src="/${img}" />
-        <button type="button" class="preview-remove" onclick="removeSlideImage(${index})">&times;</button>
-      </div>
-    `).join('');
+    const currentCover = document.getElementById('project-cover-path').value;
+
+    container.innerHTML = currentProjectImages.map((img, index) => {
+      const isCover = img === currentCover;
+      return `
+        <div class="preview-item ${isCover ? 'is-cover' : ''}" onclick="setCoverFromSlides('${img}')" title="Clic para definir como Portada">
+          <img src="/${img}" />
+          ${isCover ? '<div class="preview-cover-badge">★ Portada</div>' : '<div class="preview-set-cover-hint">Usar de portada</div>'}
+          <button type="button" class="preview-remove" onclick="event.stopPropagation(); removeSlideImage(${index})" title="Eliminar foto">&times;</button>
+        </div>
+      `;
+    }).join('');
   }
 
+  window.setCoverFromSlides = function(img) {
+    document.getElementById('project-cover-path').value = img;
+    document.getElementById('project-cover-preview').src = `/${img}`;
+    renderSlidePreviews();
+    showToast('Imagen seleccionada como portada.');
+  };
+
   window.removeSlideImage = function(index) {
-    currentProjectImages.splice(index, 1);
+    const removed = currentProjectImages.splice(index, 1)[0];
+    if (document.getElementById('project-cover-path').value === removed && currentProjectImages.length > 0) {
+      setCoverFromSlides(currentProjectImages[0]);
+    }
     renderSlidePreviews();
   };
 
-  // Upload Cover Image
+  // Upload Cover Image directly
   document.getElementById('cover-file-input')?.addEventListener('change', async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -247,6 +274,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (res && res.success) {
       document.getElementById('project-cover-path').value = res.filePath;
       document.getElementById('project-cover-preview').src = `/${res.filePath}`;
+      if (!currentProjectImages.includes(res.filePath)) {
+        currentProjectImages.unshift(res.filePath);
+      }
+      renderSlidePreviews();
       showToast('Imagen de portada subida.');
     }
   });
@@ -262,8 +293,13 @@ document.addEventListener('DOMContentLoaded', () => {
         currentProjectImages.push(res.filePath);
       }
     }
-    renderSlidePreviews();
-    showToast(`${files.length} diapositiva(s) agregada(s).`);
+    // If no cover set yet or default placeholder, use the first uploaded slide
+    if (document.getElementById('project-cover-path').value === 'img/thumb-1.jpg' && currentProjectImages.length > 0) {
+      setCoverFromSlides(currentProjectImages[0]);
+    } else {
+      renderSlidePreviews();
+    }
+    showToast(`${files.length} foto(s) agregada(s).`);
   });
 
   // Save Project Form Submit
@@ -294,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (res && res.success) {
       showToast(id ? 'Proyecto actualizado exitosamente.' : 'Proyecto creado exitosamente.');
-      document.getElementById('modal-project-form').classList.remove('active');
+      closeAllModals();
       loadProjects();
     }
   });
@@ -413,7 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (res && res.success) {
       showToast(id ? 'Artículo actualizado.' : 'Artículo creado exitosamente.');
-      document.getElementById('modal-post-form').classList.remove('active');
+      closeAllModals();
       loadPosts();
     }
   });
@@ -513,7 +549,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (res && res.success) {
       showToast(id ? 'Habilidad actualizada.' : 'Habilidad creada.');
-      document.getElementById('modal-skill-form').classList.remove('active');
+      closeAllModals();
       loadSkills();
     }
   });
@@ -546,8 +582,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('profile-facebook').value = p.facebook || '';
     document.getElementById('profile-linkedin').value = p.linkedin || '';
     
-    document.getElementById('profile-avatar-path').value = p.avatar_url || 'img/lele.png';
-    document.getElementById('profile-avatar-preview').src = `/${p.avatar_url || 'img/lele.png'}`;
+    document.getElementById('profile-avatar-path').value = p.avatar_url || 'img/image.png';
+    document.getElementById('profile-avatar-preview').src = `/${p.avatar_url || 'img/image.png'}`;
   }
 
   document.getElementById('avatar-file-input')?.addEventListener('change', async (e) => {
@@ -715,15 +751,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       showToast(res ? res.message : 'Error al cambiar contraseña.', 'error');
     }
-  });
-
-  // Modal Closers
-  document.querySelectorAll('.modal-admin-overlay').forEach(overlay => {
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay || e.target.classList.contains('btn-close-modal')) {
-        overlay.classList.remove('active');
-      }
-    });
   });
 
   // Initial tab

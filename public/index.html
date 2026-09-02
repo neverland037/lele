@@ -25,8 +25,8 @@
         Una apasionada diseñadora y publicista.
       </p>
       <a href="#about" class="btn-primary">
-        <span>Ver mi Trabajo</span>
-        <i class="mdi mdi-arrow-down"></i>
+        <span>VER MI TRABAJO</span>
+        <i class="mdi mdi-arrow-right hero-arrow"></i>
       </a>
     </div>
   </header>
@@ -41,7 +41,6 @@
       <li><a href="#portfolio" class="nav-link">Portafolio</a></li>
       <li><a href="#blog" class="nav-link">Blog</a></li>
       <li><a href="#contact" class="nav-link">Contacto</a></li>
-      <li><a href="/admin" class="nav-link nav-admin-btn"><i class="mdi mdi-lock-outline"></i> Admin</a></li>
     </ul>
   </nav>
 
@@ -92,7 +91,9 @@
       <!-- Bio & Skills -->
       <div class="about-details-grid">
         <div class="about-bio-wrap">
-          <img src="img/lele.png" alt="Lesli Estela" class="about-avatar" id="bio-avatar" />
+          <div class="about-avatar-wrap">
+            <img src="img/image.png" alt="Lesli Estela" class="about-avatar" id="bio-avatar" />
+          </div>
           <h3 class="about-bio-title" id="bio-title">¿Quién soy?</h3>
           <div class="about-bio-text" id="bio-content">
             Soy una apasionada diseñadora y publicista con experiencia en la creación de soluciones visuales y estrategias de marketing. Además de mi experiencia en diseño gráfico, también tengo habilidades en diseño web y manejo de herramientas de software líderes en la industria.
@@ -181,9 +182,9 @@
 
   <!-- ================= FOOTER ================= -->
   <footer>
-    <div class="scroll-top-btn" id="scroll-top-btn" title="Subir">
+    <button class="scroll-top-btn" id="scroll-top-btn" title="Subir al inicio">
       <i class="mdi mdi-chevron-double-up"></i>
-    </div>
+    </button>
 
     <div class="social-icons-wrap" id="social-icons">
       <!-- Dynamically populated -->
@@ -214,28 +215,6 @@
             <span>Ver Sitio en Vivo</span>
             <i class="mdi mdi-open-in-new"></i>
           </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= BLOG READER MODAL ================= -->
-  <div class="modal-overlay" id="blog-modal">
-    <div class="modal-dialog">
-      <button class="modal-close-btn" title="Cerrar"><i class="mdi mdi-close"></i></button>
-      
-      <div style="width: 100%; height: 260px; overflow: hidden; background: #111;">
-        <img src="img/thumb-1.jpg" alt="Blog Post" id="modal-blog-img" style="width: 100%; height: 100%; object-fit: cover;" />
-      </div>
-
-      <div class="modal-body">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-          <span class="modal-tag" id="modal-blog-tag">MARKETING</span>
-          <span style="font-size: 0.85rem; color: var(--text-muted);" id="modal-blog-date">MAYO 2026</span>
-        </div>
-        <h2 class="modal-title" id="modal-blog-title" style="font-size: 1.6rem; margin-bottom: 20px;">Título del Artículo</h2>
-        <div class="modal-desc" id="modal-blog-content" style="color: #cbd5e1; font-size: 1rem; line-height: 1.8;">
-          <!-- Markdown formatted article -->
         </div>
       </div>
     </div>

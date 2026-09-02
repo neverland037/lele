@@ -45,13 +45,13 @@ function initDatabase() {
     CREATE TABLE IF NOT EXISTS projects (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       title TEXT NOT NULL,
-      category_tag TEXT NOT NULL, -- e.g. 'branding', 'promo', 'web'
-      category_label TEXT NOT NULL, -- e.g. 'IDENTIDAD DE MARCA', 'MATERIAL PROMOCIONAL', 'SITIOS WEB'
+      category_tag TEXT NOT NULL,
+      category_label TEXT NOT NULL,
       description TEXT,
       client_name TEXT,
       live_url TEXT,
       cover_image TEXT,
-      images_json TEXT DEFAULT '[]', -- Array of image URLs for carousel
+      images_json TEXT DEFAULT '[]',
       is_featured INTEGER DEFAULT 1,
       order_index INTEGER DEFAULT 0,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -117,7 +117,7 @@ function initDatabase() {
         'Una apasionada diseñadora y publicista.',
         '¿Quién soy?',
         'Soy una apasionada diseñadora y publicista con experiencia en la creación de soluciones visuales y estrategias de marketing. Además de mi experiencia en diseño gráfico, también tengo habilidades en diseño web y manejo de herramientas de software de diseño líderes en la industria.',
-        'img/lele.png',
+        'img/image.png',
         'contacto@lesliestela.com',
         '906127524',
         'https://api.whatsapp.com/send/?phone=906127524&text&type=phone_number&app_absent=0',
@@ -126,6 +126,11 @@ function initDatabase() {
         'https://linkedin.com'
       )
     `);
+  } else {
+    // Update default avatar if still pointing to old avatar
+    if (existingProfile.avatar_url === 'img/lele.png' || existingProfile.avatar_url === 'img/me.png') {
+      db.run('UPDATE profile SET avatar_url = ? WHERE id = 1', ['img/image.png']);
+    }
   }
 
   // Seed Skills
@@ -206,7 +211,7 @@ function initDatabase() {
         category_label: 'SITIOS WEB',
         description: 'Diseño de interfaz y experiencia de usuario para plataforma e-commerce moderna, con navegación intuitiva y optimización visual para conversión móvil.',
         client_name: 'E-commerce Project',
-        live_url: 'https://lesli.preview.pixibit.dev',
+        live_url: 'https://lesli-estela.pixibit.dev',
         cover_image: 'img/thumb-4.jpg',
         images_json: JSON.stringify([
           'img/slides/roambi-0.jpg',
@@ -237,7 +242,7 @@ function initDatabase() {
         category_label: 'SITIOS WEB',
         description: 'Diseño y maquetación de portafolio profesional interactivo con transiciones fluidas, sistema de partículas y panel de gestión de contenidos.',
         client_name: 'Lesli Estela',
-        live_url: 'https://lesli.preview.pixibit.dev',
+        live_url: 'https://lesli-estela.pixibit.dev',
         cover_image: 'img/thumb-6.jpg',
         images_json: JSON.stringify([
           'img/slides/mystand-0.jpg',
@@ -325,8 +330,6 @@ function initDatabase() {
       )
     `);
   }
-
-  console.log('Database initialized successfully with tables and seeds.');
 }
 
 module.exports = { initDatabase };
