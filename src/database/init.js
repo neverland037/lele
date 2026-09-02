@@ -114,9 +114,9 @@ function initDatabase() {
       ) VALUES (
         1,
         'Lesli Estela',
-        'Una apasionada diseñadora y publicista.',
-        '¿Quién soy?',
-        'Soy una apasionada diseñadora y publicista con experiencia en la creación de soluciones visuales y estrategias de marketing. Además de mi experiencia en diseño gráfico, también tengo habilidades en diseño web y manejo de herramientas de software de diseño líderes en la industria.',
+        'Dirección de arte, identidad visual y diseño de experiencias digitales de alto impacto.',
+        'Estrategia visual con rigor técnico y foco en conversión',
+        'Diseño identidades de marca sólidas, piezas publicitarias de alto rendimiento e interfaces web modernas. Mi metodología combina diseño gráfico editorial, análisis de comportamiento del usuario y desarrollo de activos digitales listos para impulsar el crecimiento comercial de tu negocio.',
         'img/image.png',
         'contacto@lesliestela.com',
         '906127524',
@@ -128,8 +128,15 @@ function initDatabase() {
     `);
   }
 
-  // Always migrate avatar if referencing old files or null
+  // Always migrate avatar and ensure anti-slop high-conversion texts in profile & site_settings
   db.run("UPDATE profile SET avatar_url = 'img/image.png' WHERE avatar_url LIKE '%lele.png%' OR avatar_url LIKE '%me.png%' OR avatar_url IS NULL");
+  db.run(`
+    UPDATE profile 
+    SET tagline = 'Dirección de arte, identidad visual y diseño de experiencias digitales de alto impacto.',
+        bio_title = 'Estrategia visual con rigor técnico y foco en conversión',
+        bio_content = 'Diseño identidades de marca sólidas, piezas publicitarias de alto rendimiento e interfaces web modernas. Mi metodología combina diseño gráfico editorial, análisis de comportamiento del usuario y desarrollo de activos digitales listos para impulsar el crecimiento comercial de tu negocio.'
+    WHERE tagline LIKE '%apasionada%' OR bio_title LIKE '%¿Quién soy?%'
+  `);
 
 
   // Seed Skills
@@ -321,12 +328,22 @@ function initDatabase() {
         id, site_title, meta_description, hero_title, hero_subtitle, footer_text
       ) VALUES (
         1,
-        'Lesli Estela | Diseñadora & Publicista',
-        'Portafolio profesional de Lesli Estela. Soluciones en diseño gráfico, identidad de marca, material publicitario y diseño web.',
-        'Hola, soy <span class="highlight">Lesli Estela!</span>',
-        'Una apasionada diseñadora y publicista.',
-        'Lesli Estela &copy; 2026'
+        'Lesli Estela | Dirección de Arte, Identidad Visual & Diseño Web',
+        'Portafolio profesional de Lesli Estela. Especialista en identidad de marca, piezas publicitarias de alto impacto, interfaces UI/UX y diseño web.',
+        'Diseño visual estratégico que <span class="highlight">construye marcas</span> memorables',
+        'Identidad de marca, diseño publicitario y experiencias web de alta fidelidad orientadas a resultados comerciales.',
+        'Lesli Estela &copy; 2026. Dirección de Arte & Estrategia Visual.'
       )
+    `);
+  } else {
+    db.run(`
+      UPDATE site_settings
+      SET site_title = 'Lesli Estela | Dirección de Arte, Identidad Visual & Diseño Web',
+          meta_description = 'Portafolio profesional de Lesli Estela. Especialista en identidad de marca, piezas publicitarias de alto impacto, interfaces UI/UX y diseño web.',
+          hero_title = 'Diseño visual estratégico que <span class="highlight">construye marcas</span> memorables',
+          hero_subtitle = 'Identidad de marca, diseño publicitario y experiencias web de alta fidelidad orientadas a resultados comerciales.',
+          footer_text = 'Lesli Estela &copy; 2026. Dirección de Arte & Estrategia Visual.'
+      WHERE hero_title LIKE '%Hola, soy%' OR hero_subtitle LIKE '%apasionada%'
     `);
   }
 }

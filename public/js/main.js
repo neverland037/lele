@@ -1,10 +1,10 @@
-// Lesli Estela - Dynamic Public Client Script
+// Lesli Estela - Dynamic Public Client Script (High-End UX & Anti-Slop)
 document.addEventListener('DOMContentLoaded', () => {
   let projectsData = [];
   let currentProject = null;
   let currentSlideIndex = 0;
 
-  // Initialize Page
+  // Initialize Page Modules
   fetchProfile();
   fetchSkills();
   fetchProjects();
@@ -21,14 +21,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const { profile, settings } = data;
 
-      // Update Site Title & Hero
+      // Update Site Title & Hero Texts
       if (settings.site_title) document.title = settings.site_title;
       if (settings.hero_title) document.getElementById('hero-title').innerHTML = settings.hero_title;
       if (settings.hero_subtitle) document.getElementById('hero-subtitle').textContent = settings.hero_subtitle;
       if (settings.footer_text) document.getElementById('footer-copy').innerHTML = settings.footer_text;
 
-      // Update Bio / About Me
-      if (profile.name) document.getElementById('nav-logo-text').textContent = profile.name;
+      // Update Bio / About Me Texts
+      if (profile.name) {
+        const logoNameEl = document.querySelector('.logo-name');
+        if (logoNameEl) logoNameEl.textContent = profile.name;
+        else document.getElementById('nav-logo-text').textContent = profile.name;
+      }
       if (profile.bio_title) document.getElementById('bio-title').textContent = profile.bio_title;
       if (profile.bio_content) document.getElementById('bio-content').innerHTML = profile.bio_content;
       if (profile.avatar_url) document.getElementById('bio-avatar').src = profile.avatar_url;
@@ -38,16 +42,16 @@ document.addEventListener('DOMContentLoaded', () => {
       if (socialsContainer) {
         let html = '';
         if (profile.facebook) {
-          html += `<a href="${profile.facebook}" target="_blank" class="social-btn" title="Facebook"><i class="mdi mdi-facebook"></i></a>`;
+          html += `<a href="${profile.facebook}" target="_blank" rel="noopener noreferrer" class="social-btn" title="Facebook"><i class="mdi mdi-facebook"></i></a>`;
         }
         if (profile.instagram) {
-          html += `<a href="${profile.instagram}" target="_blank" class="social-btn" title="Instagram"><i class="mdi mdi-instagram"></i></a>`;
+          html += `<a href="${profile.instagram}" target="_blank" rel="noopener noreferrer" class="social-btn" title="Instagram"><i class="mdi mdi-instagram"></i></a>`;
         }
         if (profile.whatsapp) {
-          html += `<a href="${profile.whatsapp}" target="_blank" class="social-btn" title="WhatsApp"><i class="mdi mdi-whatsapp"></i></a>`;
+          html += `<a href="${profile.whatsapp}" target="_blank" rel="noopener noreferrer" class="social-btn" title="WhatsApp"><i class="mdi mdi-whatsapp"></i></a>`;
         }
         if (profile.linkedin) {
-          html += `<a href="${profile.linkedin}" target="_blank" class="social-btn" title="LinkedIn"><i class="mdi mdi-linkedin"></i></a>`;
+          html += `<a href="${profile.linkedin}" target="_blank" rel="noopener noreferrer" class="social-btn" title="LinkedIn"><i class="mdi mdi-linkedin"></i></a>`;
         }
         socialsContainer.innerHTML = html;
       }
@@ -67,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!skillsContainer) return;
 
       skillsContainer.innerHTML = data.skills.map(s => `
-        <div class="skill-bar-wrap">
+        <div class="skill-bar-wrap" data-percentage="${s.percentage}">
           <div class="skill-bar-fill" style="width: ${s.percentage}%">
             <span class="skill-name">${s.name}</span>
           </div>
@@ -103,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
       : projectsData.filter(p => p.category_tag === filterTag);
 
     if (filtered.length === 0) {
-      gallery.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">No hay proyectos en esta categoría.</div>`;
+      gallery.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 48px; background: var(--bg-card); border-radius: 16px; border: 1px dashed var(--card-border);">No hay proyectos disponibles en esta categoría.</div>`;
       return;
     }
 
@@ -117,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <h3 class="project-title">${p.title}</h3>
           <p class="project-excerpt">${p.description || ''}</p>
           <button class="project-btn" onclick="openProjectModal(${p.id})">
-            <span>Ver Más</span>
+            <span>Ver Caso de Estudio</span>
             <i class="mdi mdi-arrow-right"></i>
           </button>
         </div>
@@ -137,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Project Modal opener
+  // Project Modal Opener
   window.openProjectModal = function(id) {
     currentProject = projectsData.find(p => p.id === id);
     if (!currentProject) return;
@@ -200,11 +204,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // Modal Closers
   document.querySelectorAll('.modal-close-btn, .modal-overlay').forEach(el => {
     el.addEventListener('click', (e) => {
-      if (e.target === el || el.classList.contains('modal-close-btn')) {
+      if (e.target === el || el.classList.contains('modal-close-btn') || el.closest('.modal-close-btn')) {
         document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
         document.body.style.overflow = 'auto';
       }
     });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+      document.body.style.overflow = 'auto';
+    }
   });
 
   // --- BLOG ---
@@ -218,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!blogGrid) return;
 
       if (data.posts.length === 0) {
-        blogGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">No hay publicaciones disponibles en este momento.</div>`;
+        blogGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 48px; background: var(--bg-card); border-radius: 16px; border: 1px dashed var(--card-border);">No hay publicaciones disponibles en este momento.</div>`;
         return;
       }
 
@@ -229,13 +240,13 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <div class="blog-info">
             <div class="blog-meta">
-              <span class="blog-tag">${post.category || 'MARKETING'}</span>
+              <span class="blog-tag">${post.category || 'ESTRATEGIA'}</span>
               <span class="blog-date">${post.published_date || ''}</span>
             </div>
             <h3 class="blog-title">${post.title}</h3>
             <p class="blog-excerpt">${post.excerpt || ''}</p>
             <div class="blog-read-more">
-              <span>Leer artículo completo</span>
+              <span>Leer artículo</span>
               <i class="mdi mdi-arrow-right"></i>
             </div>
           </div>
@@ -265,13 +276,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (!name || !email || !message) {
         feedback.className = 'form-feedback error';
-        feedback.textContent = 'Por favor completa todos los campos requeridos.';
+        feedback.textContent = 'Por favor completa todos los campos para enviar tu mensaje.';
         feedback.style.display = 'block';
         return;
       }
 
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="mdi mdi-loading mdi-spin"></i> Enviando...';
+      submitBtn.innerHTML = '<span>Enviando mensaje...</span> <i class="mdi mdi-loading mdi-spin"></i>';
 
       try {
         const res = await fetch('/api/messages', {
@@ -283,21 +294,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await res.json();
         if (data.success) {
           feedback.className = 'form-feedback success';
-          feedback.textContent = data.message || '¡Tu mensaje ha sido enviado correctamente! Gracias.';
+          feedback.textContent = data.message || '¡Tu mensaje ha sido enviado correctamente! Me pondré en contacto contigo a la brevedad.';
           feedback.style.display = 'block';
           form.reset();
         } else {
           feedback.className = 'form-feedback error';
-          feedback.textContent = data.message || 'No se pudo enviar el mensaje.';
+          feedback.textContent = data.message || 'No se pudo enviar el mensaje. Por favor intenta de nuevo.';
           feedback.style.display = 'block';
         }
       } catch (err) {
         feedback.className = 'form-feedback error';
-        feedback.textContent = 'Ocurrió un error al enviar el mensaje. Intenta de nuevo más tarde.';
+        feedback.textContent = 'Ocurrió un error de conexión al enviar el mensaje. Intenta de nuevo más tarde.';
         feedback.style.display = 'block';
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<span>ENVIAR MENSAJE</span> <i class="mdi mdi-send"></i>';
+        submitBtn.innerHTML = '<span>Enviar Mensaje Directo</span> <i class="mdi mdi-send-outline"></i>';
       }
     });
   }
@@ -308,20 +319,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelector('.nav-links');
 
     mobileToggle?.addEventListener('click', () => {
+      navLinks?.classList.toggle('open');
       navLinks?.classList.toggle('show');
     });
 
     document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => {
+        navLinks?.classList.remove('open');
         navLinks?.classList.remove('show');
       });
     });
 
-    // ScrollSpy Link Active Highlight
-    const sections = document.querySelectorAll('section');
+    // ScrollSpy Active Link Indicator
+    const sections = document.querySelectorAll('section, header#home');
     window.addEventListener('scroll', () => {
       let current = '';
-      const scrollPos = window.scrollY + 200;
+      const scrollPos = window.scrollY + 180;
 
       sections.forEach(section => {
         const sectionTop = section.offsetTop;
@@ -339,7 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Scroll to Top
+    // Scroll to Top Smooth Action
     document.getElementById('scroll-top-btn')?.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });

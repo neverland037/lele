@@ -3,84 +3,101 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Artículo | Lesli Estela Blog</title>
+  <title>Artículo | Lesli Estela</title>
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" />
   <link rel="stylesheet" href="/css/style.css" />
+  
   <style>
     .blog-page-nav {
       position: sticky;
       top: 0;
       width: 100%;
-      background: rgba(30, 36, 44, 0.96);
-      backdrop-filter: blur(12px);
-      border-bottom: 2px solid var(--accent-cyan);
-      z-index: 100;
+      background: rgba(9, 13, 22, 0.9);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--card-border);
+      z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 40px;
-      height: 65px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      padding: 0 36px;
+      height: 72px;
+      box-shadow: var(--shadow-sm);
     }
     .btn-back-home {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
+      gap: 10px;
+      color: var(--text-secondary);
       font-weight: 600;
       font-size: 0.95rem;
+      padding: 8px 18px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
       transition: var(--transition);
     }
     .btn-back-home:hover {
-      color: var(--accent-cyan);
+      color: #ffffff;
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--accent-cyan);
       transform: translateX(-4px);
     }
     .article-container {
-      max-width: 820px;
-      margin: 50px auto 80px auto;
-      padding: 0 20px;
+      max-width: 860px;
+      margin: 60px auto 100px auto;
+      padding: 0 24px;
     }
     .article-header {
-      margin-bottom: 35px;
+      margin-bottom: 40px;
       text-align: center;
     }
     .article-tag {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
       padding: 6px 16px;
-      background: rgba(4, 194, 201, 0.15);
-      color: var(--accent-cyan);
+      background: rgba(244, 63, 94, 0.12);
+      color: var(--accent-rose);
+      border: 1px solid rgba(244, 63, 94, 0.25);
       font-weight: 700;
-      font-size: 0.85rem;
-      border-radius: 20px;
+      font-size: 0.8rem;
+      border-radius: 30px;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 16px;
+      letter-spacing: 1.2px;
+      margin-bottom: 20px;
     }
     .article-title {
       font-family: var(--font-heading);
-      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
       font-weight: 800;
-      line-height: 1.25;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
       color: #ffffff;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
     .article-meta {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 20px;
+      gap: 24px;
       color: var(--text-muted);
-      font-size: 0.9rem;
+      font-size: 0.92rem;
+      flex-wrap: wrap;
     }
     .article-cover {
       width: 100%;
-      max-height: 480px;
-      border-radius: 16px;
+      max-height: 500px;
+      border-radius: 20px;
       overflow: hidden;
-      margin-bottom: 40px;
+      margin-bottom: 48px;
       border: 1px solid var(--card-border);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      box-shadow: var(--shadow-lg);
     }
     .article-cover img {
       width: 100%;
@@ -89,20 +106,34 @@
     }
     .article-content {
       font-size: 1.15rem;
-      line-height: 1.9;
-      color: #cbd5e1;
+      line-height: 1.95;
+      color: var(--text-secondary);
+      background: var(--bg-card);
+      padding: 44px 40px;
+      border-radius: 20px;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(14px);
     }
     .article-content h2, .article-content h3 {
       color: #ffffff;
-      margin: 35px 0 15px 0;
+      margin: 40px 0 18px 0;
       font-family: var(--font-heading);
+      letter-spacing: -0.01em;
     }
-    .article-content h2 { font-size: 1.75rem; border-bottom: 1px solid var(--card-border); padding-bottom: 8px; }
-    .article-content h3 { font-size: 1.4rem; color: var(--accent-cyan); }
-    .article-content p { margin-bottom: 22px; }
-    .article-content ul, .article-content ol { margin-bottom: 24px; padding-left: 25px; }
-    .article-content li { margin-bottom: 10px; }
-    .article-content strong { color: #ffffff; }
+    .article-content h2 { 
+      font-size: 1.85rem; 
+      border-bottom: 1px solid var(--card-border); 
+      padding-bottom: 12px; 
+    }
+    .article-content h3 { 
+      font-size: 1.45rem; 
+      color: var(--accent-cyan); 
+    }
+    .article-content p { margin-bottom: 24px; }
+    .article-content ul, .article-content ol { margin-bottom: 28px; padding-left: 20px; }
+    .article-content li { margin-bottom: 12px; }
+    .article-content strong { color: #ffffff; font-weight: 700; }
 
     /* Share Bar */
     .share-bar {
@@ -110,118 +141,128 @@
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 15px;
-      padding: 25px 0;
-      margin: 50px 0;
-      border-top: 1px solid var(--card-border);
-      border-bottom: 1px solid var(--card-border);
+      gap: 16px;
+      padding: 24px 30px;
+      margin: 40px 0;
+      background: rgba(15, 23, 42, 0.7);
+      border-radius: 16px;
+      border: 1px solid var(--card-border);
     }
     .share-btns {
       display: flex;
       gap: 12px;
     }
     .btn-share {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      background: var(--bg-card);
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--card-border);
       color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       cursor: pointer;
       transition: var(--transition);
     }
     .btn-share:hover {
-      background: var(--accent-pink);
+      background: var(--accent-rose);
+      border-color: var(--accent-rose);
       transform: translateY(-3px);
+      box-shadow: 0 6px 18px var(--accent-rose-glow);
     }
 
     /* Author Card */
     .author-card {
       background: var(--bg-card);
       border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 30px;
+      border-radius: 20px;
+      padding: 36px;
       display: flex;
       align-items: center;
-      gap: 25px;
-      margin-bottom: 70px;
+      gap: 28px;
+      margin-bottom: 80px;
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(14px);
     }
     .author-avatar {
-      width: 85px;
-      height: 85px;
+      width: 90px;
+      height: 90px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid var(--accent-cyan);
+      border: 2px solid var(--accent-cyan);
+      box-shadow: 0 0 20px var(--accent-cyan-glow);
       flex-shrink: 0;
     }
     .author-name {
-      font-size: 1.3rem;
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
       font-weight: 700;
       color: #ffffff;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
     .author-bio {
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.6;
+      font-size: 0.96rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
     }
 
-    @media (max-width: 650px) {
+    @media (max-width: 680px) {
       .author-card {
         flex-direction: column;
         text-align: center;
       }
       .blog-page-nav {
-        padding: 0 20px;
+        padding: 0 18px;
+      }
+      .article-content {
+        padding: 28px 20px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Nav -->
+  <!-- Top Navigation -->
   <nav class="blog-page-nav">
     <a href="/" class="btn-back-home">
       <i class="mdi mdi-arrow-left"></i>
       <span>Volver al Portafolio</span>
     </a>
-    <a href="/" class="nav-logo" id="nav-logo">Lesli Estela</a>
+    <a href="/" class="nav-logo" id="nav-logo" style="font-family:var(--font-heading); font-weight:800; color:#fff;">Lesli Estela</a>
   </nav>
 
   <main class="article-container">
-    <div id="loading" style="text-align:center; padding: 60px; color: var(--text-muted); font-size: 1.2rem;">
-      <i class="mdi mdi-loading mdi-spin" style="font-size:2rem; color:var(--accent-cyan);"></i>
-      <p style="margin-top:15px;">Cargando artículo...</p>
+    <div id="loading" style="text-align:center; padding: 80px 20px; color: var(--text-muted); font-size: 1.15rem;">
+      <i class="mdi mdi-loading mdi-spin" style="font-size:2.4rem; color:var(--accent-cyan);"></i>
+      <p style="margin-top:16px;">Cargando artículo y análisis...</p>
     </div>
 
     <article id="article-view" style="display:none;">
       <header class="article-header">
-        <span class="article-tag" id="article-tag">Marketing</span>
+        <span class="article-tag" id="article-tag">Estrategia</span>
         <h1 class="article-title" id="article-title">Título del Artículo</h1>
         <div class="article-meta">
           <span><i class="mdi mdi-calendar-blank-outline"></i> <span id="article-date">Fecha</span></span>
-          <span><i class="mdi mdi-eye-outline"></i> <span id="article-views">0</span> vistas</span>
+          <span><i class="mdi mdi-eye-outline"></i> <span id="article-views">0</span> lecturas</span>
         </div>
       </header>
 
       <div class="article-cover">
-        <img id="article-cover-img" src="/img/thumb-1.jpg" alt="Portada" />
+        <img id="article-cover-img" src="/img/thumb-1.jpg" alt="Portada del artículo" />
       </div>
 
       <div class="article-content" id="article-content">
-        <!-- Markdown parsed content -->
+        <!-- Dynamic markdown parsed content -->
       </div>
 
       <!-- Share bar -->
       <div class="share-bar">
-        <span style="font-weight:700; color:#fff;">¿Te gustó este artículo? ¡Compártelo!</span>
+        <span style="font-weight:700; color:#fff; font-size:0.96rem;">¿Te pareció útil este artículo? Compártelo en tus redes:</span>
         <div class="share-btns">
-          <a id="share-wa" href="#" target="_blank" class="btn-share" title="Compartir en WhatsApp"><i class="mdi mdi-whatsapp"></i></a>
-          <a id="share-fb" href="#" target="_blank" class="btn-share" title="Compartir en Facebook"><i class="mdi mdi-facebook"></i></a>
+          <a id="share-wa" href="#" target="_blank" rel="noopener noreferrer" class="btn-share" title="Compartir en WhatsApp"><i class="mdi mdi-whatsapp"></i></a>
+          <a id="share-fb" href="#" target="_blank" rel="noopener noreferrer" class="btn-share" title="Compartir en Facebook"><i class="mdi mdi-facebook"></i></a>
           <button id="share-copy" class="btn-share" title="Copiar enlace"><i class="mdi mdi-link-variant"></i></button>
         </div>
       </div>
@@ -231,27 +272,28 @@
         <img src="/img/image.png" alt="Lesli Estela" class="author-avatar" id="author-img" />
         <div>
           <h3 class="author-name" id="author-name">Lesli Estela</h3>
-          <p class="author-bio" id="author-bio">Diseñadora gráfica, publicista y creadora de experiencias digitales. Especializada en soluciones visuales, identidad de marca y estrategias de contenido.</p>
+          <p class="author-bio" id="author-bio">Especialista en dirección de arte, identidad visual y diseño web de alto impacto. Creando soluciones visuales estratégicas que diferencian marcas en entornos comerciales.</p>
         </div>
       </div>
 
-      <!-- More articles -->
-      <div style="margin-top: 50px;">
-        <h3 style="font-family:var(--font-heading); font-size:1.6rem; margin-bottom:25px; color:#fff;">Más Artículos Recomendados</h3>
+      <!-- Related articles -->
+      <div style="margin-top: 60px;">
+        <h3 style="font-family:var(--font-heading); font-size:1.7rem; font-weight:800; margin-bottom:28px; color:#fff;">Más Artículos de Estrategia & Diseño</h3>
         <div class="blog-grid" id="related-posts"></div>
       </div>
     </article>
   </main>
 
   <footer>
-    <div class="footer-copy">
-      Lesli Estela &copy; 2026. Todos los derechos reservados.
+    <div class="footer-container">
+      <div class="footer-copy">
+        Lesli Estela &copy; 2026. Dirección de Arte & Estrategia Visual.
+      </div>
     </div>
   </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
-      // Get slug from URL path e.g. /blog/some-slug or ?slug=some-slug
       const pathParts = window.location.pathname.split('/').filter(Boolean);
       let slug = pathParts[1] || new URLSearchParams(window.location.search).get('slug');
 
@@ -265,16 +307,16 @@
 
         if (!data.success || !data.post) {
           document.getElementById('loading').innerHTML = `
-            <h2>Artículo no encontrado</h2>
-            <p style="margin-top:10px;">El artículo que buscas no existe o ha sido despublicado.</p>
-            <a href="/" class="btn-primary" style="margin-top:20px; display:inline-block;">Volver al Inicio</a>
+            <h2 style="font-family:var(--font-heading); color:#fff; margin-bottom:12px;">Artículo no encontrado</h2>
+            <p style="color:var(--text-muted); margin-bottom:24px;">El artículo que buscas no existe o ha sido despublicado.</p>
+            <a href="/" class="btn-primary" style="display:inline-flex;">Volver al Portafolio</a>
           `;
           return;
         }
 
         const post = data.post;
         document.title = `${post.title} | Lesli Estela`;
-        document.getElementById('article-tag').textContent = post.category || 'MARKETING';
+        document.getElementById('article-tag').textContent = post.category || 'ESTRATEGIA';
         document.getElementById('article-title').textContent = post.title;
         document.getElementById('article-date').textContent = post.published_date || '';
         document.getElementById('article-views').textContent = (post.views || 0) + 1;
@@ -322,13 +364,13 @@
           const others = postsData.posts.filter(p => p.id !== post.id).slice(0, 3);
           const relatedContainer = document.getElementById('related-posts');
           relatedContainer.innerHTML = others.map(item => `
-            <a href="/blog/${item.slug}" class="blog-card" style="text-decoration:none;">
+            <a href="/blog/${item.slug}" class="blog-card">
               <div class="blog-thumb">
                 <img src="/${item.cover_image || 'img/thumb-1.jpg'}" alt="${item.title}" />
               </div>
               <div class="blog-info">
                 <div class="blog-meta">
-                  <span class="blog-tag">${item.category || 'MARKETING'}</span>
+                  <span class="blog-tag">${item.category || 'ESTRATEGIA'}</span>
                   <span>${item.published_date || ''}</span>
                 </div>
                 <h4 class="blog-title" style="font-size:1.15rem;">${item.title}</h4>
