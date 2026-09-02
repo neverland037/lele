@@ -126,12 +126,11 @@ function initDatabase() {
         'https://linkedin.com'
       )
     `);
-  } else {
-    // Update default avatar if still pointing to old avatar
-    if (existingProfile.avatar_url === 'img/lele.png' || existingProfile.avatar_url === 'img/me.png') {
-      db.run('UPDATE profile SET avatar_url = ? WHERE id = 1', ['img/image.png']);
-    }
   }
+
+  // Always migrate avatar if referencing old files or null
+  db.run("UPDATE profile SET avatar_url = 'img/image.png' WHERE avatar_url LIKE '%lele.png%' OR avatar_url LIKE '%me.png%' OR avatar_url IS NULL");
+
 
   // Seed Skills
   const skillsCount = db.queryOne('SELECT COUNT(*) as count FROM skills');

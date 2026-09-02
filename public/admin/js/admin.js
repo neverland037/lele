@@ -195,6 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
     `).join('');
   }
 
+  let draggedIndex = null;
+
   window.openCreateProjectModal = function() {
     document.getElementById('project-form').reset();
     document.getElementById('project-id').value = '';
@@ -220,10 +222,25 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('project-description').value = p.description || '';
     document.getElementById('project-order').value = p.order_index || 0;
     
-    document.getElementById('project-cover-path').value = p.cover_image || 'img/thumb-1.jpg';
-    document.getElementById('project-cover-preview').src = `/${p.cover_image || 'img/thumb-1.jpg'}`;
+    const cover = p.cover_image || 'img/thumb-1.jpg';
+    document.getElementById('project-cover-path').value = cover;
+    document.getElementById('project-cover-preview').src = `/${cover}`;
 
-    currentProjectImages = Array.isArray(p.images) ? [...p.images] : [];
+    // Combine cover and all slide images so all images appear in the list
+    let allImgs = [];
+    if (cover && cover !== 'img/thumb-1.jpg') {
+      allImgs.push(cover);
+    }
+    if (Array.isArray(p.images)) {
+      p.images.forEach(img => {
+        if (!allImgs.includes(img)) allImgs.push(img);
+      });
+    }
+    if (allImgs.length === 0 && cover) {
+      allImgs.push(cover);
+    }
+
+    currentProjectImages = allImgs;
     renderSlidePreviews();
 
     document.getElementById('modal-project-form').classList.add('active');
@@ -235,16 +252,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const currentCover = document.getElementById('project-cover-path').value;
 
+    if (currentProjectImages.length === 0) {
+      container.innerHTML = '<div style="color:var(--text-muted); font-size:0.85rem; padding:10px 0; width:100%;">No hay imágenes cargadas aún. Selecciona una portada o sube fotos para el carrusel.</div>';
+      return;
+    }
+
     container.innerHTML = currentProjectImages.map((img, index) => {
       const isCover = img === currentCover;
       return `
-        <div class="preview-item ${isCover ? 'is-cover' : ''}" onclick="setCoverFromSlides('${img}')" title="Clic para definir como Portada">
-          <img src="/${img}" />
-          ${isCover ? '<div class="preview-cover-badge">★ Portada</div>' : '<div class="preview-set-cover-hint">Usar de portada</div>'}
+        <div class="preview-item ${isCover ? 'is-cover' : ''}"
+             draggable="true"
+             data-index="${index}"
+             onclick="setCoverFromSlides('${img}')"
+             title="Clic: Definir como Portada | Arrastra para cambiar el orden">
+          <div class="drag-icon-handle"><i class="mdi mdi-drag"></i> ${index + 1}</div>
+          <img src="/${img}" alt="Slide ${index + 1}" />
+          ${isCover ? '<div class="preview-cover-badge">★ Portada</div>' : '<div class="preview-set-cover-hint"><span>Clic: Portada</span><span style="font-size:0.6rem; opacity:0.8;">↔ Arrastra</span></div>'}
           <button type="button" class="preview-remove" onclick="event.stopPropagation(); removeSlideImage(${index})" title="Eliminar foto">&times;</button>
         </div>
       `;
     }).join('');
+
+    // Attach Drag and Drop Event Listeners
+    const items = container.querySelectorAll('.preview-item');
+    items.forEach(item => {
+      item.addEventListener('dragstart', (e) => {
+        draggedIndex = parseInt(item.getAttribute('data-index'));
+        item.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', draggedIndex);
+      });
+
+      item.addEventListener('dragend', () => {
+        item.classList.remove('dragging');
+        items.forEach(i => i.classList.remove('drag-over'));
+      });
+
+      item.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+      });
+
+      item.addEventListener('dragenter', () => {
+        item.classList.add('drag-over');
+      });
+
+      item.addEventListener('dragleave', () => {
+        item.classList.remove('drag-over');
+      });
+
+      item.addEventListener('drop', (e) => {
+        e.preventDefault();
+        item.classList.remove('drag-over');
+        const targetIndex = parseInt(item.getAttribute('data-index'));
+
+        if (draggedIndex !== null && draggedIndex !== targetIndex) {
+          const movedItem = currentProjectImages.splice(draggedIndex, 1)[0];
+          currentProjectImages.splice(targetIndex, 0, movedItem);
+          renderSlidePreviews();
+        }
+      });
+    });
   }
 
   window.setCoverFromSlides = function(img) {
@@ -258,6 +326,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const removed = currentProjectImages.splice(index, 1)[0];
     if (document.getElementById('project-cover-path').value === removed && currentProjectImages.length > 0) {
       setCoverFromSlides(currentProjectImages[0]);
+    } else if (currentProjectImages.length === 0) {
+      document.getElementById('project-cover-path').value = 'img/thumb-1.jpg';
+      document.getElementById('project-cover-preview').src = '/img/thumb-1.jpg';
     }
     renderSlidePreviews();
   };
@@ -290,11 +361,13 @@ document.addEventListener('DOMContentLoaded', () => {
       formData.append('image', file);
       const res = await fetchAuth('/api/upload', { method: 'POST', body: formData });
       if (res && res.success) {
-        currentProjectImages.push(res.filePath);
+        if (!currentProjectImages.includes(res.filePath)) {
+          currentProjectImages.push(res.filePath);
+        }
       }
     }
     // If no cover set yet or default placeholder, use the first uploaded slide
-    if (document.getElementById('project-cover-path').value === 'img/thumb-1.jpg' && currentProjectImages.length > 0) {
+    if ((document.getElementById('project-cover-path').value === 'img/thumb-1.jpg' || !document.getElementById('project-cover-path').value) && currentProjectImages.length > 0) {
       setCoverFromSlides(currentProjectImages[0]);
     } else {
       renderSlidePreviews();
