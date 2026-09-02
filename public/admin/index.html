@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Administración | Lesli Estela CMS</title>
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo-icon">L</div>
+      <div class="sidebar-logo-text">Lesli Estela</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-tab="dashboard">
+        <i class="mdi mdi-view-dashboard-outline"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" data-tab="projects">
+        <i class="mdi mdi-folder-multiple-image"></i>
+        <span>Proyectos</span>
+      </a>
+      <a href="#" class="nav-item" data-tab="posts">
+        <i class="mdi mdi-newspaper-variant-multiple-outline"></i>
+        <span>Blog</span>
+      </a>
+      <a href="#" class="nav-item" data-tab="skills">
+        <i class="mdi mdi-lightning-bolt-outline"></i>
+        <span>Habilidades</span>
+      </a>
+      <a href="#" class="nav-item" data-tab="profile">
+        <i class="mdi mdi-account-cog-outline"></i>
+        <span>Perfil & Redes</span>
+      </a>
+      <a href="#" class="nav-item" data-tab="messages">
+        <i class="mdi mdi-email-outline"></i>
+        <span>Mensajes</span>
+        <span class="nav-badge unread-badge" style="display:none;">0</span>
+      </a>
+      <a href="#" class="nav-item" data-tab="settings">
+        <i class="mdi mdi-cog-outline"></i>
+        <span>Ajustes</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar">A</div>
+        <div>
+          <div style="font-weight:700; font-size:0.9rem;" id="user-display-name">Admin</div>
+          <div style="font-size:0.75rem; color:var(--text-muted);">Administrador</div>
+        </div>
+      </div>
+      <button class="btn-logout" id="btn-logout" title="Cerrar Sesión">
+        <i class="mdi mdi-logout"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN CONTAINER ================= -->
+  <main class="main-wrap">
+    <header class="top-bar">
+      <div style="display:flex; align-items:center; gap:15px;">
+        <i class="mdi mdi-menu admin-mobile-toggle"></i>
+        <h1 class="page-title" id="page-title">Panel General</h1>
+      </div>
+
+      <div class="top-actions">
+        <a href="/" target="_blank" class="btn-view-site">
+          <i class="mdi mdi-open-in-new"></i>
+          <span>Ver Sitio Web</span>
+        </a>
+      </div>
+    </header>
+
+    <div class="content-body">
+
+      <!-- ================= TAB: DASHBOARD ================= -->
+      <section class="tab-panel active" id="panel-dashboard">
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h4>Total Proyectos</h4>
+              <div class="kpi-val" id="kpi-projects">0</div>
+            </div>
+            <div class="kpi-icon pink"><i class="mdi mdi-folder-image"></i></div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h4>Artículos Blog</h4>
+              <div class="kpi-val" id="kpi-posts">0</div>
+            </div>
+            <div class="kpi-icon cyan"><i class="mdi mdi-newspaper"></i></div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h4>Habilidades</h4>
+              <div class="kpi-val" id="kpi-skills">0</div>
+            </div>
+            <div class="kpi-icon purple"><i class="mdi mdi-lightning-bolt"></i></div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h4>Mensajes Contacto</h4>
+              <div class="kpi-val" id="kpi-messages">0</div>
+            </div>
+            <div class="kpi-icon green"><i class="mdi mdi-email-check"></i></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Mensajes Recientes de Contacto</h2>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Correo</th>
+                  <th>Estado</th>
+                  <th>Fecha</th>
+                </tr>
+              </thead>
+              <tbody id="recent-messages-table">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB: PROYECTOS ================= -->
+      <section class="tab-panel" id="panel-projects">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Listado de Proyectos</h2>
+            <button class="btn-primary" onclick="openCreateProjectModal()">
+              <i class="mdi mdi-plus"></i> <span>Nuevo Proyecto</span>
+            </button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Portada</th>
+                  <th>Título</th>
+                  <th>Categoría</th>
+                  <th>Orden</th>
+                  <th>Galería</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="projects-table-body">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB: BLOG ================= -->
+      <section class="tab-panel" id="panel-posts">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Artículos Publicados</h2>
+            <button class="btn-primary" onclick="openCreatePostModal()">
+              <i class="mdi mdi-plus"></i> <span>Nuevo Artículo</span>
+            </button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Portada</th>
+                  <th>Título</th>
+                  <th>Categoría</th>
+                  <th>Estado</th>
+                  <th>Vistas</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="posts-table-body">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB: HABILIDADES ================= -->
+      <section class="tab-panel" id="panel-skills">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Habilidades y Porcentajes</h2>
+            <button class="btn-primary" onclick="openCreateSkillModal()">
+              <i class="mdi mdi-plus"></i> <span>Nueva Habilidad</span>
+            </button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Habilidad</th>
+                  <th>Categoría</th>
+                  <th>Nivel (%)</th>
+                  <th>Orden</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="skills-table-body">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB: PERFIL & REDES ================= -->
+      <section class="tab-panel" id="panel-profile">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Información del Perfil y Redes Sociales</h2>
+          </div>
+          <form id="profile-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">Nombre Completo</label>
+                <input type="text" class="form-input" id="profile-name" required />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Frase / Tagline Hero</label>
+                <input type="text" class="form-input" id="profile-tagline" />
+              </div>
+
+              <div class="form-group full-width">
+                <label class="form-label">Foto de Perfil (Avatar)</label>
+                <div style="display:flex; align-items:center; gap:20px;">
+                  <img id="profile-avatar-preview" src="/img/lele.png" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:2px solid var(--accent-cyan);" />
+                  <div>
+                    <input type="file" id="avatar-file-input" accept="image/*" style="display:none;" />
+                    <button type="button" class="btn-secondary" onclick="document.getElementById('avatar-file-input').click()">
+                      <i class="mdi mdi-upload"></i> <span>Cambiar Foto</span>
+                    </button>
+                    <input type="hidden" id="profile-avatar-path" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Título Sección "Quién soy"</label>
+                <input type="text" class="form-input" id="profile-bio-title" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Correo de Contacto</label>
+                <input type="email" class="form-input" id="profile-email" />
+              </div>
+
+              <div class="form-group full-width">
+                <label class="form-label">Biografía Detallada</label>
+                <textarea class="form-textarea" id="profile-bio-content"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Teléfono / WhatsApp</label>
+                <input type="text" class="form-input" id="profile-phone" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Enlace WhatsApp Directo</label>
+                <input type="text" class="form-input" id="profile-whatsapp" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">URL Instagram</label>
+                <input type="text" class="form-input" id="profile-instagram" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">URL Facebook</label>
+                <input type="text" class="form-input" id="profile-facebook" />
+              </div>
+
+              <div class="form-group full-width">
+                <label class="form-label">URL LinkedIn</label>
+                <input type="text" class="form-input" id="profile-linkedin" />
+              </div>
+            </div>
+
+            <div style="margin-top:20px; display:flex; justify-content:flex-end;">
+              <button type="submit" class="btn-primary">
+                <i class="mdi mdi-content-save"></i> <span>Guardar Cambios de Perfil</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ================= TAB: MENSAJES ================= -->
+      <section class="tab-panel" id="panel-messages">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Bandeja de Entrada de Contactos</h2>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Remitente</th>
+                  <th>Correo</th>
+                  <th>Mensaje</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="messages-table-body">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB: AJUSTES ================= -->
+      <section class="tab-panel" id="panel-settings">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Configuración del Sitio</h2>
+          </div>
+          <form id="settings-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">Título de la Pestaña (HTML Title)</label>
+                <input type="text" class="form-input" id="settings-site-title" required />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Texto del Footer</label>
+                <input type="text" class="form-input" id="settings-footer" />
+              </div>
+
+              <div class="form-group full-width">
+                <label class="form-label">Meta Descripción (SEO)</label>
+                <textarea class="form-textarea" id="settings-meta-desc" style="min-height:80px;"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Título Hero</label>
+                <input type="text" class="form-input" id="settings-hero-title" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Subtítulo Hero</label>
+                <input type="text" class="form-input" id="settings-hero-subtitle" />
+              </div>
+            </div>
+
+            <div style="margin-top:15px; display:flex; justify-content:flex-end;">
+              <button type="submit" class="btn-primary">
+                <i class="mdi mdi-content-save"></i> <span>Guardar Configuración</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Cambiar Contraseña de Administrador</h2>
+          </div>
+          <form id="password-form" style="max-width:500px;">
+            <div class="form-group">
+              <label class="form-label">Contraseña Actual</label>
+              <input type="password" class="form-input" id="current-password" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Nueva Contraseña</label>
+              <input type="password" class="form-input" id="new-password" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Confirmar Nueva Contraseña</label>
+              <input type="password" class="form-input" id="confirm-password" required />
+            </div>
+
+            <button type="submit" class="btn-primary" style="margin-top:10px;">
+              <i class="mdi mdi-key-variant"></i> <span>Actualizar Contraseña</span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ================= MODAL: PROYECTO ================= -->
+  <div class="modal-admin-overlay" id="modal-project-form">
+    <div class="modal-admin">
+      <div class="modal-admin-header">
+        <h2 class="card-title" id="project-modal-title">Nuevo Proyecto</h2>
+        <button type="button" class="btn-icon btn-close-modal"><i class="mdi mdi-close"></i></button>
+      </div>
+      <form id="project-form">
+        <div class="modal-admin-body">
+          <input type="hidden" id="project-id" />
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Título del Proyecto</label>
+              <input type="text" class="form-input" id="project-title" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Filtro de Categoría</label>
+              <select class="form-select" id="project-category-tag">
+                <option value="branding">Identidad de Marca (branding)</option>
+                <option value="promo">Material Promocional (promo)</option>
+                <option value="web">Sitios Web (web)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Etiqueta Visible</label>
+              <input type="text" class="form-input" id="project-category-label" placeholder="Ej: IDENTIDAD DE MARCA" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Cliente / Marca</label>
+              <input type="text" class="form-input" id="project-client" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">URL del Sitio en Vivo (Opcional)</label>
+              <input type="url" class="form-input" id="project-url" placeholder="https://ejemplo.com" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Orden de Visualización</label>
+              <input type="number" class="form-input" id="project-order" value="0" />
+            </div>
+
+            <div class="form-group full-width">
+              <label class="form-label">Descripción Detallada</label>
+              <textarea class="form-textarea" id="project-description"></textarea>
+            </div>
+
+            <!-- Cover Image Upload -->
+            <div class="form-group full-width">
+              <label class="form-label">Imagen de Portada</label>
+              <div style="display:flex; align-items:center; gap:20px;">
+                <img id="project-cover-preview" src="/img/thumb-1.jpg" style="width:100px; height:80px; border-radius:8px; object-fit:cover; border:1px solid var(--border);" />
+                <div>
+                  <input type="file" id="cover-file-input" accept="image/*" style="display:none;" />
+                  <button type="button" class="btn-secondary" onclick="document.getElementById('cover-file-input').click()">
+                    <i class="mdi mdi-image-plus"></i> <span>Seleccionar Portada</span>
+                  </button>
+                  <input type="hidden" id="project-cover-path" value="img/thumb-1.jpg" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Multi-slide Carousel Upload -->
+            <div class="form-group full-width">
+              <label class="form-label">Diapositivas para el Carrusel / Modal</label>
+              <input type="file" id="slides-file-input" multiple accept="image/*" style="display:none;" />
+              <div class="dropzone" onclick="document.getElementById('slides-file-input').click()">
+                <i class="mdi mdi-cloud-upload-outline"></i>
+                <div style="font-weight:600; color:#fff;">Haz clic para agregar fotos al carrusel</div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">Puedes seleccionar varias imágenes a la vez</div>
+              </div>
+              <div class="preview-grid" id="project-slides-preview"></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-admin-footer">
+          <button type="button" class="btn-secondary btn-close-modal">Cancelar</button>
+          <button type="submit" class="btn-primary"><i class="mdi mdi-content-save"></i> <span>Guardar Proyecto</span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: ARTÍCULO BLOG ================= -->
+  <div class="modal-admin-overlay" id="modal-post-form">
+    <div class="modal-admin">
+      <div class="modal-admin-header">
+        <h2 class="card-title" id="post-modal-title">Nuevo Artículo</h2>
+        <button type="button" class="btn-icon btn-close-modal"><i class="mdi mdi-close"></i></button>
+      </div>
+      <form id="post-form">
+        <div class="modal-admin-body">
+          <input type="hidden" id="post-id" />
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label class="form-label">Título del Artículo</label>
+              <input type="text" class="form-input" id="post-title" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Categoría</label>
+              <input type="text" class="form-input" id="post-category" placeholder="Marketing, Publicidad, Diseño" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Fecha de Publicación</label>
+              <input type="text" class="form-input" id="post-date" placeholder="Ej: MAYO 2026" />
+            </div>
+
+            <!-- Cover Image -->
+            <div class="form-group full-width">
+              <label class="form-label">Imagen de Portada</label>
+              <div style="display:flex; align-items:center; gap:20px;">
+                <img id="post-cover-preview" src="/img/thumb-1.jpg" style="width:100px; height:70px; border-radius:8px; object-fit:cover; border:1px solid var(--border);" />
+                <div>
+                  <input type="file" id="post-cover-file-input" accept="image/*" style="display:none;" />
+                  <button type="button" class="btn-secondary" onclick="document.getElementById('post-cover-file-input').click()">
+                    <i class="mdi mdi-image-plus"></i> <span>Subir Portada</span>
+                  </button>
+                  <input type="hidden" id="post-cover-path" value="img/thumb-1.jpg" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label class="form-label">Extracto Breve</label>
+              <textarea class="form-textarea" id="post-excerpt" style="min-height:70px;" placeholder="Resumen breve para la tarjeta"></textarea>
+            </div>
+
+            <div class="form-group full-width">
+              <label class="form-label">Contenido Completo (Acepta Markdown / Texto)</label>
+              <textarea class="form-textarea" id="post-content" style="min-height:180px;" required placeholder="Escribe el artículo..."></textarea>
+            </div>
+
+            <div class="form-group full-width">
+              <label style="display:flex; align-items:center; gap:10px; cursor:pointer;">
+                <input type="checkbox" id="post-published" checked style="width:18px; height:18px; accent-color:var(--accent-pink);" />
+                <span style="font-weight:600; font-size:0.95rem;">Publicar inmediatamente en el sitio web</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-admin-footer">
+          <button type="button" class="btn-secondary btn-close-modal">Cancelar</button>
+          <button type="submit" class="btn-primary"><i class="mdi mdi-content-save"></i> <span>Guardar Artículo</span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: HABILIDAD ================= -->
+  <div class="modal-admin-overlay" id="modal-skill-form">
+    <div class="modal-admin" style="max-width:480px;">
+      <div class="modal-admin-header">
+        <h2 class="card-title" id="skill-modal-title">Nueva Habilidad</h2>
+        <button type="button" class="btn-icon btn-close-modal"><i class="mdi mdi-close"></i></button>
+      </div>
+      <form id="skill-form">
+        <div class="modal-admin-body">
+          <input type="hidden" id="skill-id" />
+          <div class="form-group">
+            <label class="form-label">Nombre de la Habilidad / Software</label>
+            <input type="text" class="form-input" id="skill-name" placeholder="Ej: Photoshop, Figma, Branding" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Categoría</label>
+            <input type="text" class="form-input" id="skill-category" placeholder="Diseño, Video, Web" />
+          </div>
+
+          <div class="form-group">
+            <div style="display:flex; justify-content:space-between;">
+              <label class="form-label">Porcentaje de Dominio</label>
+              <span id="skill-range-val" style="font-weight:700; color:var(--accent-cyan);">50%</span>
+            </div>
+            <input type="range" min="0" max="100" value="50" class="form-input" id="skill-pct" style="padding:0; accent-color:var(--accent-cyan);" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Orden</label>
+            <input type="number" class="form-input" id="skill-order" value="0" />
+          </div>
+        </div>
+        <div class="modal-admin-footer">
+          <button type="button" class="btn-secondary btn-close-modal">Cancelar</button>
+          <button type="submit" class="btn-primary"><i class="mdi mdi-content-save"></i> <span>Guardar</span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/admin.js"></script>
+</body>
+</html>

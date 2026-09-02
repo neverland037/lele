@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+  <title>Lesli Estela | Diseñadora & Publicista</title>
+  <meta name="description" content="Portafolio profesional de Lesli Estela. Soluciones en diseño gráfico, identidad de marca, material publicitario y diseño web." />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="fonts/mdi/css/materialdesignicons.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ================= HERO / INICIO ================= -->
+  <header id="home">
+    <canvas id="canvas-bg"></canvas>
+    <div class="hero-content">
+      <h1 class="hero-title" id="hero-title">
+        Hola, soy <span class="highlight">Lesli Estela!</span>
+      </h1>
+      <p class="hero-subtitle" id="hero-subtitle">
+        Una apasionada diseñadora y publicista.
+      </p>
+      <a href="#about" class="btn-primary">
+        <span>Ver mi Trabajo</span>
+        <i class="mdi mdi-arrow-down"></i>
+      </a>
+    </div>
+  </header>
+
+  <!-- ================= NAVIGATION ================= -->
+  <nav id="navbar">
+    <a href="#home" class="nav-logo" id="nav-logo-text">Lesli Estela</a>
+    <i class="mdi mdi-menu mobile-toggle"></i>
+    <ul class="nav-links">
+      <li><a href="#home" class="nav-link active">Inicio</a></li>
+      <li><a href="#about" class="nav-link">Sobre Mí</a></li>
+      <li><a href="#portfolio" class="nav-link">Portafolio</a></li>
+      <li><a href="#blog" class="nav-link">Blog</a></li>
+      <li><a href="#contact" class="nav-link">Contacto</a></li>
+      <li><a href="/admin" class="nav-link nav-admin-btn"><i class="mdi mdi-lock-outline"></i> Admin</a></li>
+    </ul>
+  </nav>
+
+  <!-- ================= ABOUT / SOBRE MÍ ================= -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Sobre Mí</h2>
+        <div class="section-bar"></div>
+        <p class="section-subtitle">Creatividad, estrategia y pasión por el diseño de experiencias visuales.</p>
+      </div>
+
+      <!-- Feature Highlights -->
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <i class="mdi mdi-web"></i>
+          </div>
+          <h3 class="feature-title">Web & UI/UX</h3>
+          <p class="feature-desc">Especializada en la creación de experiencias digitales atractivas, modernas y funcionales.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <i class="mdi mdi-bullhorn"></i>
+          </div>
+          <h3 class="feature-title">Comunicación</h3>
+          <p class="feature-desc">Transmisión estratégica y efectiva de mensajes publicitarios de alto impacto.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <i class="mdi mdi-brush"></i>
+          </div>
+          <h3 class="feature-title">Creatividad</h3>
+          <p class="feature-desc">Conceptos visuales originales que capturan la atención y diferencian a las marcas.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <i class="mdi mdi-rocket-launch"></i>
+          </div>
+          <h3 class="feature-title">Dinámico</h3>
+          <p class="feature-desc">Agilidad y funcionalidad para resolver retos creativos con visión integral.</p>
+        </div>
+      </div>
+
+      <!-- Bio & Skills -->
+      <div class="about-details-grid">
+        <div class="about-bio-wrap">
+          <img src="img/lele.png" alt="Lesli Estela" class="about-avatar" id="bio-avatar" />
+          <h3 class="about-bio-title" id="bio-title">¿Quién soy?</h3>
+          <div class="about-bio-text" id="bio-content">
+            Soy una apasionada diseñadora y publicista con experiencia en la creación de soluciones visuales y estrategias de marketing. Además de mi experiencia en diseño gráfico, también tengo habilidades en diseño web y manejo de herramientas de software líderes en la industria.
+          </div>
+        </div>
+
+        <div class="skills-container" id="skills-container">
+          <!-- Dynamically populated from API -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PORTFOLIO / PROYECTOS ================= -->
+  <section id="portfolio">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Proyectos</h2>
+        <div class="section-bar"></div>
+        <p class="section-subtitle">Una muestra de mis trabajos en identidad de marca, material publicitario y desarrollo web.</p>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters-bar">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="branding">Identidad de Marca</button>
+        <button class="filter-btn" data-filter="promo">Material Promocional</button>
+        <button class="filter-btn" data-filter="web">Sitios Web</button>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="projects-grid" id="projects-gallery">
+        <!-- Dynamically populated from API -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BLOG ================= -->
+  <section id="blog">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Blog</h2>
+        <div class="section-bar"></div>
+        <p class="section-subtitle">Ideas, tendencias y estrategias sobre marketing, publicidad y diseño.</p>
+      </div>
+
+      <div class="blog-grid" id="blog-grid">
+        <!-- Dynamically populated from API -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Contacto</h2>
+        <div class="section-bar"></div>
+        <p class="section-subtitle">¿Tienes alguna pregunta o te gustaría trabajar juntos? ¡Escríbeme!</p>
+      </div>
+
+      <div class="contact-wrap">
+        <form class="contact-form" id="contact-form">
+          <div id="contact-feedback" class="form-feedback"></div>
+          
+          <div class="form-group">
+            <input type="text" class="form-control" id="contact-name" name="name" placeholder="Tu Nombre completo" required />
+          </div>
+
+          <div class="form-group">
+            <input type="email" class="form-control" id="contact-email" name="email" placeholder="Tu Correo Electrónico" required />
+          </div>
+
+          <div class="form-group">
+            <textarea class="form-control" id="contact-message" name="message" placeholder="¿En qué te puedo ayudar? Escribe tu mensaje aquí..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit" id="contact-submit-btn">
+            <span>ENVIAR MENSAJE</span>
+            <i class="mdi mdi-send"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="scroll-top-btn" id="scroll-top-btn" title="Subir">
+      <i class="mdi mdi-chevron-double-up"></i>
+    </div>
+
+    <div class="social-icons-wrap" id="social-icons">
+      <!-- Dynamically populated -->
+    </div>
+
+    <div class="footer-copy" id="footer-copy">
+      Lesli Estela &copy; 2026. Todos los derechos reservados.
+    </div>
+  </footer>
+
+  <!-- ================= PROJECT MODAL ================= -->
+  <div class="modal-overlay" id="project-modal">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" title="Cerrar"><i class="mdi mdi-close"></i></button>
+      
+      <div class="carousel-container">
+        <button class="carousel-nav-btn carousel-prev" id="carousel-prev-btn"><i class="mdi mdi-chevron-left"></i></button>
+        <img src="img/thumb-1.jpg" alt="Slide" class="carousel-slide-img" id="carousel-slide-img" />
+        <button class="carousel-nav-btn carousel-next" id="carousel-next-btn"><i class="mdi mdi-chevron-right"></i></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-tag" id="modal-project-tag">IDENTIDAD DE MARCA</div>
+        <h2 class="modal-title" id="modal-project-title">Título del Proyecto</h2>
+        <div class="modal-desc" id="modal-project-desc">Descripción detallada del proyecto...</div>
+        <div class="modal-footer-action">
+          <a href="#" target="_blank" class="btn-primary" id="modal-project-link" style="padding: 10px 22px; font-size: 0.95rem;">
+            <span>Ver Sitio en Vivo</span>
+            <i class="mdi mdi-open-in-new"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= BLOG READER MODAL ================= -->
+  <div class="modal-overlay" id="blog-modal">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" title="Cerrar"><i class="mdi mdi-close"></i></button>
+      
+      <div style="width: 100%; height: 260px; overflow: hidden; background: #111;">
+        <img src="img/thumb-1.jpg" alt="Blog Post" id="modal-blog-img" style="width: 100%; height: 100%; object-fit: cover;" />
+      </div>
+
+      <div class="modal-body">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <span class="modal-tag" id="modal-blog-tag">MARKETING</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);" id="modal-blog-date">MAYO 2026</span>
+        </div>
+        <h2 class="modal-title" id="modal-blog-title" style="font-size: 1.6rem; margin-bottom: 20px;">Título del Artículo</h2>
+        <div class="modal-desc" id="modal-blog-content" style="color: #cbd5e1; font-size: 1rem; line-height: 1.8;">
+          <!-- Markdown formatted article -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/canvas.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
