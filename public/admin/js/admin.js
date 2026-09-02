@@ -201,8 +201,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('project-form').reset();
     document.getElementById('project-id').value = '';
     document.getElementById('project-modal-title').textContent = 'Nuevo Proyecto';
-    document.getElementById('project-cover-preview').src = '/img/thumb-1.jpg';
-    document.getElementById('project-cover-path').value = 'img/thumb-1.jpg';
     currentProjectImages = [];
     renderSlidePreviews();
     document.getElementById('modal-project-form').classList.add('active');
@@ -222,22 +220,25 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('project-description').value = p.description || '';
     document.getElementById('project-order').value = p.order_index || 0;
     
-    const cover = p.cover_image || 'img/thumb-1.jpg';
-    document.getElementById('project-cover-path').value = cover;
-    document.getElementById('project-cover-preview').src = `/${cover}`;
-
-    // Combine cover and all slide images so all images appear in the list
+    // Combine existing cover_image and slide images without losing any photo
+    const cover = p.cover_image && p.cover_image !== 'img/thumb-1.jpg' ? p.cover_image : null;
     let allImgs = [];
-    if (cover && cover !== 'img/thumb-1.jpg') {
+
+    if (cover) {
       allImgs.push(cover);
     }
+
     if (Array.isArray(p.images)) {
       p.images.forEach(img => {
-        if (!allImgs.includes(img)) allImgs.push(img);
+        if (!allImgs.includes(img)) {
+          allImgs.push(img);
+        }
       });
     }
-    if (allImgs.length === 0 && cover) {
-      allImgs.push(cover);
+
+    // If project only had default placeholder or no images
+    if (allImgs.length === 0 && p.cover_image) {
+      allImgs.push(p.cover_image);
     }
 
     currentProjectImages = allImgs;
@@ -250,24 +251,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('project-slides-preview');
     if (!container) return;
 
-    const currentCover = document.getElementById('project-cover-path').value;
-
     if (currentProjectImages.length === 0) {
-      container.innerHTML = '<div style="color:var(--text-muted); font-size:0.85rem; padding:10px 0; width:100%;">No hay imágenes cargadas aún. Selecciona una portada o sube fotos para el carrusel.</div>';
+      container.innerHTML = `
+        <div style="color:var(--text-muted); font-size:0.85rem; padding:18px 0; width:100%; text-align:center; border:1px dashed var(--border); border-radius:8px;">
+          <i class="mdi mdi-image-outline" style="font-size:1.8rem; display:block; margin-bottom:4px; opacity:0.6;"></i>
+          No hay fotos agregadas aún. Haz clic arriba para seleccionar fotos del proyecto.
+        </div>
+      `;
       return;
     }
 
     container.innerHTML = currentProjectImages.map((img, index) => {
-      const isCover = img === currentCover;
+      const isCover = index === 0;
       return `
         <div class="preview-item ${isCover ? 'is-cover' : ''}"
              draggable="true"
              data-index="${index}"
-             onclick="setCoverFromSlides('${img}')"
-             title="Clic: Definir como Portada | Arrastra para cambiar el orden">
-          <div class="drag-icon-handle"><i class="mdi mdi-drag"></i> ${index + 1}</div>
-          <img src="/${img}" alt="Slide ${index + 1}" />
-          ${isCover ? '<div class="preview-cover-badge">★ Portada</div>' : '<div class="preview-set-cover-hint"><span>Clic: Portada</span><span style="font-size:0.6rem; opacity:0.8;">↔ Arrastra</span></div>'}
+             onclick="${isCover ? '' : `makeImageCover(${index})`}"
+             title="${isCover ? 'Esta es la Portada principal del proyecto' : 'Clic para mover a Portada (Posición 1) | Arrastra para reordenar'}">
+          <div class="drag-icon-handle">${isCover ? '<i class="mdi mdi-star"></i> 1' : `<i class="mdi mdi-drag"></i> ${index + 1}`}</div>
+          <img src="/${img}" alt="Foto ${index + 1}" />
+          ${isCover 
+            ? '<div class="preview-cover-badge">★ PORTADA</div>' 
+            : '<div class="preview-set-cover-hint"><i class="mdi mdi-star-outline" style="font-size:1.1rem; margin-bottom:2px;"></i><span>Hacer Portada</span><span style="font-size:0.6rem; opacity:0.85;">o arrastra al #1</span></div>'
+          }
           <button type="button" class="preview-remove" onclick="event.stopPropagation(); removeSlideImage(${index})" title="Eliminar foto">&times;</button>
         </div>
       `;
@@ -310,75 +317,57 @@ document.addEventListener('DOMContentLoaded', () => {
           const movedItem = currentProjectImages.splice(draggedIndex, 1)[0];
           currentProjectImages.splice(targetIndex, 0, movedItem);
           renderSlidePreviews();
+          if (targetIndex === 0 || draggedIndex === 0) {
+            showToast('Portada actualizada a la imagen en posición #1.');
+          }
         }
       });
     });
   }
 
-  window.setCoverFromSlides = function(img) {
-    document.getElementById('project-cover-path').value = img;
-    document.getElementById('project-cover-preview').src = `/${img}`;
+  // Quick Action: Move any image to position 0 (Cover)
+  window.makeImageCover = function(index) {
+    if (index === 0 || index >= currentProjectImages.length) return;
+    const item = currentProjectImages.splice(index, 1)[0];
+    currentProjectImages.unshift(item);
     renderSlidePreviews();
-    showToast('Imagen seleccionada como portada.');
+    showToast('Imagen movida a la posición #1 como Portada.');
   };
 
   window.removeSlideImage = function(index) {
-    const removed = currentProjectImages.splice(index, 1)[0];
-    if (document.getElementById('project-cover-path').value === removed && currentProjectImages.length > 0) {
-      setCoverFromSlides(currentProjectImages[0]);
-    } else if (currentProjectImages.length === 0) {
-      document.getElementById('project-cover-path').value = 'img/thumb-1.jpg';
-      document.getElementById('project-cover-preview').src = '/img/thumb-1.jpg';
-    }
+    currentProjectImages.splice(index, 1);
     renderSlidePreviews();
+    showToast('Foto eliminada del proyecto.');
   };
 
-  // Upload Cover Image directly
-  document.getElementById('cover-file-input')?.addEventListener('change', async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const formData = new FormData();
-    formData.append('image', file);
-
-    const res = await fetchAuth('/api/upload', { method: 'POST', body: formData });
-    if (res && res.success) {
-      document.getElementById('project-cover-path').value = res.filePath;
-      document.getElementById('project-cover-preview').src = `/${res.filePath}`;
-      if (!currentProjectImages.includes(res.filePath)) {
-        currentProjectImages.unshift(res.filePath);
-      }
-      renderSlidePreviews();
-      showToast('Imagen de portada subida.');
-    }
-  });
-
-  // Upload Slide Images
+  // Upload Project Images (Single or Multiple)
   document.getElementById('slides-file-input')?.addEventListener('change', async (e) => {
     const files = Array.from(e.target.files);
+    if (!files.length) return;
+
+    let addedCount = 0;
     for (const file of files) {
       const formData = new FormData();
       formData.append('image', file);
       const res = await fetchAuth('/api/upload', { method: 'POST', body: formData });
       if (res && res.success) {
-        if (!currentProjectImages.includes(res.filePath)) {
-          currentProjectImages.push(res.filePath);
-        }
+        currentProjectImages.push(res.filePath);
+        addedCount++;
       }
     }
-    // If no cover set yet or default placeholder, use the first uploaded slide
-    if ((document.getElementById('project-cover-path').value === 'img/thumb-1.jpg' || !document.getElementById('project-cover-path').value) && currentProjectImages.length > 0) {
-      setCoverFromSlides(currentProjectImages[0]);
-    } else {
-      renderSlidePreviews();
+    renderSlidePreviews();
+    if (addedCount > 0) {
+      showToast(`${addedCount} foto(s) agregada(s) al proyecto.`);
     }
-    showToast(`${files.length} foto(s) agregada(s).`);
+    e.target.value = ''; // Reset input to allow re-uploading same file if needed
   });
 
   // Save Project Form Submit
   document.getElementById('project-form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const id = document.getElementById('project-id').value;
+
+    const coverImage = currentProjectImages.length > 0 ? currentProjectImages[0] : 'img/thumb-1.jpg';
 
     const payload = {
       title: document.getElementById('project-title').value.trim(),
@@ -388,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
       live_url: document.getElementById('project-url').value.trim(),
       description: document.getElementById('project-description').value.trim(),
       order_index: parseInt(document.getElementById('project-order').value) || 0,
-      cover_image: document.getElementById('project-cover-path').value,
+      cover_image: coverImage,
       images: currentProjectImages
     };
 

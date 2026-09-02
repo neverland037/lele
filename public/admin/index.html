@@ -455,31 +455,25 @@
               <textarea class="form-textarea" id="project-description"></textarea>
             </div>
 
-            <!-- Cover Image Upload -->
+            <!-- Unified Project Images & Gallery Upload -->
             <div class="form-group full-width">
-              <label class="form-label">Imagen de Portada</label>
-              <div style="display:flex; align-items:center; gap:20px;">
-                <img id="project-cover-preview" src="/img/thumb-1.jpg" style="width:100px; height:80px; border-radius:8px; object-fit:cover; border:1px solid var(--border);" />
-                <div>
-                  <input type="file" id="cover-file-input" accept="image/*" style="display:none;" />
-                  <button type="button" class="btn-secondary" onclick="document.getElementById('cover-file-input').click()">
-                    <i class="mdi mdi-image-plus"></i> <span>Seleccionar Portada</span>
-                  </button>
-                  <input type="hidden" id="project-cover-path" value="img/thumb-1.jpg" />
-                </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+                <label class="form-label" style="margin-bottom:0;">
+                  <i class="mdi mdi-image-multiple-outline"></i> Imágenes del Proyecto (Galería & Carrusel)
+                </label>
+                <span class="badge" style="background:rgba(244,63,94,0.15); color:var(--accent-pink); border:1px solid rgba(244,63,94,0.3); font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:20px;">
+                  ★ La 1ª imagen es automáticamente la PORTADA
+                </span>
               </div>
-            </div>
 
-            <!-- Multi-slide Carousel Upload -->
-            <div class="form-group full-width">
-              <label class="form-label">Diapositivas para el Carrusel / Modal</label>
               <input type="file" id="slides-file-input" multiple accept="image/*" style="display:none;" />
               <div class="dropzone" onclick="document.getElementById('slides-file-input').click()">
                 <i class="mdi mdi-cloud-upload-outline"></i>
-                <div style="font-weight:600; color:#fff;">Haz clic para agregar fotos al carrusel</div>
-                <div style="font-size:0.8rem; color:var(--text-muted);">Puedes seleccionar varias imágenes a la vez</div>
+                <div style="font-weight:600; color:#fff; font-size:0.95rem;">Haz clic para agregar fotos al proyecto</div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">Puedes seleccionar varias imágenes a la vez. Arrastra las fotos para definir el orden (la posición #1 será la portada).</div>
               </div>
-              <div class="preview-grid" id="project-slides-preview"></div>
+
+              <div class="preview-grid" id="project-slides-preview" style="margin-top:14px;"></div>
             </div>
           </div>
         </div>
